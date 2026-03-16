@@ -1,0 +1,41 @@
+{
+  "name": "catalogo-webs",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Galeria de experiencias web tematicas construida con React y TypeScript.",
+  "type": "module",
+  "scripts": {
+    "dev": "set \"PATH=%cd%\\.tools\\node-v24.14.0-win-x64;%PATH%\" && vite --host 127.0.0.1 --port 4173",
+    "build": "set \"PATH=%cd%\\.tools\\node-v24.14.0-win-x64;%PATH%\" && tsc --noEmit && vite build",
+    "preview": "set \"PATH=%cd%\\.tools\\node-v24.14.0-win-x64;%PATH%\" && vite preview --host 127.0.0.1 --port 4173",
+    "test": "set \"PATH=%cd%\\.tools\\node-v24.14.0-win-x64;%PATH%\" && vitest run"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "vite",
+    "catalogo",
+    "demos"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^25.3.5",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "jsdom": "^28.1.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
+  }
+}

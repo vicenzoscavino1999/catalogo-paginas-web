@@ -1,0 +1,1468 @@
+.page {
+  --studio-accent: #c37b5f;
+  --studio-deep: #0a0808;
+  --studio-soft: #f2ddd0;
+  --studio-glow: rgba(195, 123, 95, 0.2);
+  --studio-case-accent: #c37b5f;
+  min-height: 100vh;
+  color: #f5eee4;
+  background:
+    radial-gradient(circle at top left, rgba(195, 123, 95, 0.08), transparent 22%),
+    radial-gradient(circle at 88% 12%, rgba(255, 220, 195, 0.06), transparent 18%),
+    linear-gradient(180deg, #090708 0%, #0c090a 38%, #110d0d 100%);
+  cursor: none;
+}
+
+.page h1,
+.page h2,
+.page h3,
+.page strong {
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: -0.045em;
+}
+
+.page p {
+  font-family: "Manrope", sans-serif;
+}
+
+.page a,
+.page button,
+.page span,
+.page small {
+  font-family: "Syne", sans-serif;
+}
+
+.page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 120px 120px;
+}
+
+.loadingScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 520ms ease,
+    visibility 520ms ease;
+}
+
+.loadingScreenVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loadingBackdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, color-mix(in srgb, var(--studio-accent) 18%, transparent), transparent 26%),
+    linear-gradient(180deg, rgba(9, 7, 8, 0.94), rgba(9, 7, 8, 0.99));
+}
+
+.loadingBrand {
+  position: relative;
+  z-index: 1;
+  width: min(520px, calc(100% - 40px));
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.loadingBrand p {
+  margin: 0;
+  color: color-mix(in srgb, var(--studio-accent) 84%, white);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.loadingBrand strong {
+  font-size: clamp(2rem, 5vw, 3.7rem);
+  line-height: 0.9;
+}
+
+.loadingMark,
+.brandMark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 18px 36px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+  transform: rotate(8deg);
+}
+
+.loadingMark {
+  width: 90px;
+  height: 90px;
+}
+
+.loadingMark span,
+.brandMark span {
+  position: relative;
+  z-index: 1;
+  color: color-mix(in srgb, var(--studio-accent) 86%, white);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+}
+
+.loadingMark::before,
+.brandMarkRing::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 14px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+}
+
+.loadingBar {
+  width: min(280px, 100%);
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.loadingBarFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--studio-accent) 84%, white), transparent);
+  transform: translateX(-100%);
+  animation: loadingSweep 1.35s ease-in-out infinite;
+}
+
+.transitionVeil,
+.cursorAura,
+.cursorDot {
+  position: fixed;
+  pointer-events: none;
+}
+
+.transitionVeil {
+  inset: 0;
+  z-index: 70;
+  opacity: 0;
+  background-position: center;
+  background-size: cover;
+}
+
+.transitionVeil::before,
+.transitionVeil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.transitionVeil::before {
+  background:
+    linear-gradient(180deg, rgba(9, 7, 8, 0.16), rgba(9, 7, 8, 0.86)),
+    radial-gradient(circle at center, color-mix(in srgb, var(--studio-accent) 18%, transparent), transparent 28%);
+}
+
+.transitionVeil::after {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.12;
+}
+
+.transitionVeilActive {
+  animation: sceneFlash 560ms ease forwards;
+}
+
+.cursorAura,
+.cursorDot {
+  z-index: 90;
+  opacity: 0;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.cursorAura {
+  --cursor-scale: 1;
+  top: -70px;
+  left: -70px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--studio-accent) 18%, white), transparent 46%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 66%);
+  filter: blur(10px);
+  mix-blend-mode: screen;
+}
+
+.cursorDot {
+  --cursor-dot-scale: 1;
+  top: -8px;
+  left: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 0 8px color-mix(in srgb, var(--studio-accent) 12%, transparent),
+    0 0 18px color-mix(in srgb, var(--studio-accent) 22%, transparent);
+  transform: rotate(45deg);
+}
+
+.page[data-cursor="active"] .cursorAura,
+.page[data-cursor="active"] .cursorDot,
+.page[data-cursor="interactive"] .cursorAura,
+.page[data-cursor="interactive"] .cursorDot {
+  opacity: 1;
+}
+
+.page[data-cursor="interactive"] .cursorAura {
+  --cursor-scale: 1.18;
+}
+
+.page[data-cursor="interactive"] .cursorDot {
+  --cursor-dot-scale: 1.24;
+}
+
+.page[data-pressed="true"] .cursorAura {
+  --cursor-scale: 0.92;
+}
+
+.page[data-pressed="true"] .cursorDot {
+  --cursor-dot-scale: 0.82;
+}
+
+.topbar {
+  position: fixed;
+  top: 18px;
+  left: 24px;
+  right: 24px;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(11, 8, 9, 0.9), rgba(11, 8, 9, 0.5)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent 28%);
+  backdrop-filter: blur(18px) saturate(1.04);
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    border-color 220ms ease;
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--studio-accent) 72%, white), transparent);
+  opacity: 0.5;
+}
+
+.topbarHidden {
+  opacity: 0;
+  transform: translate3d(0, -132%, 0);
+  pointer-events: none;
+}
+
+.brandBlock,
+.heroSignature,
+.topbarActions,
+.heroActions,
+.closingActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.brandMark {
+  width: 52px;
+  height: 52px;
+}
+
+.brandMarkRing {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.brandCopy {
+  display: grid;
+  gap: 5px;
+}
+
+.brandLabel,
+.eyebrow,
+.metaLabel,
+.disciplineCaption span,
+.caseCaption span,
+.supportCopy span,
+.signalCard span,
+.caseSignalCard span,
+.workflowSignalCard span,
+.ribbonItem span,
+.processMarker span,
+.processStep span,
+.filterChip,
+.heroPreviewCopy span,
+.mosaicCopy span,
+.ledgerCard span,
+.servicePaperHeader span,
+.caseDossier span,
+.closingNote span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.brandLabel,
+.eyebrow,
+.metaLabel,
+.disciplineCaption span,
+.caseCaption span,
+.supportCopy span,
+.heroPreviewCopy span,
+.mosaicCopy span,
+.ledgerCard span,
+.servicePaperHeader span,
+.caseDossier span,
+.closingNote span {
+  color: color-mix(in srgb, var(--studio-accent) 86%, white);
+}
+
+.brandName {
+  font-size: 1.82rem;
+  line-height: 1;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.navLinks a {
+  position: relative;
+  color: rgba(245, 238, 228, 0.7);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.navLinks a:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.navLinkActive {
+  color: #fff;
+}
+
+.navLinkActive::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--studio-accent) 84%, white), transparent);
+}
+
+.backLink,
+.workspaceLink,
+.nextLink,
+.primaryCta,
+.secondaryCta,
+.filterChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.backLink,
+.workspaceLink,
+.secondaryCta,
+.filterChip {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f5eee4;
+  backdrop-filter: blur(12px);
+}
+
+.backLink:focus-visible,
+.workspaceLink:focus-visible,
+.nextLink:focus-visible,
+.primaryCta:focus-visible,
+.secondaryCta:focus-visible,
+.filterChip:focus-visible,
+.heroPreviewCard:focus-visible,
+.ribbonItem:focus-visible,
+.disciplineRow:focus-visible,
+.caseRow:focus-visible,
+.processStep:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--studio-accent) 70%, white);
+  outline-offset: 4px;
+}
+
+.nextLink,
+.primaryCta {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--studio-accent) 84%, #efcfbf), color-mix(in srgb, var(--studio-accent) 54%, #fff2ea));
+  color: #1e120d;
+  box-shadow: 0 18px 38px var(--studio-glow);
+}
+
+.nextLink {
+  gap: 10px;
+}
+
+.backLink:hover,
+.workspaceLink:hover,
+.nextLink:hover,
+.primaryCta:hover,
+.secondaryCta:hover,
+.filterChip:hover,
+.heroPreviewCard:hover,
+.ribbonItem:hover,
+.disciplineRow:hover,
+.caseRow:hover,
+.processStep:hover,
+.disciplineVisual:hover,
+.supportPanel:hover,
+.caseVisual:hover,
+.mosaicCard:hover {
+  transform: translateY(-2px);
+}
+
+.hero,
+.servicesSection,
+.casesSection,
+.processSection,
+.closingSection {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --bg-x: 0px;
+  --bg-y: 0px;
+  --panel-x: 0px;
+  --panel-y: 0px;
+}
+
+.heroBackdrop,
+.heroLayer,
+.sectionBackdrop {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  will-change: transform, opacity, filter;
+  transition:
+    transform 260ms ease-out,
+    opacity 220ms ease,
+    filter 220ms ease;
+}
+
+.heroBackdrop,
+.sectionBackdrop {
+  transform: scale(1.05) translate3d(var(--bg-x), var(--bg-y), 0);
+  filter: saturate(1.04) contrast(1.02);
+}
+
+.heroLayer {
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  transform: scale(1.08) translate3d(calc(var(--bg-x) * -0.6), calc(var(--bg-y) * -0.6), 0);
+}
+
+.hero::before,
+.servicesSection::before,
+.casesSection::before,
+.processSection::before,
+.closingSection::before,
+.hero::after,
+.servicesSection::after,
+.casesSection::after,
+.processSection::after,
+.closingSection::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero::before {
+  z-index: 1;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--studio-accent) 12%, transparent), transparent 24%),
+    linear-gradient(180deg, rgba(9, 7, 8, 0.14), rgba(9, 7, 8, 0.72)),
+    linear-gradient(90deg, rgba(9, 7, 8, 0.58), transparent 42%, rgba(9, 7, 8, 0.18));
+}
+
+.servicesSection::before,
+.processSection::before,
+.closingSection::before {
+  z-index: 1;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--studio-accent) 10%, transparent), transparent 24%),
+    linear-gradient(180deg, rgba(9, 7, 8, 0.48), rgba(9, 7, 8, 0.82)),
+    linear-gradient(90deg, rgba(9, 7, 8, 0.72), transparent 58%);
+}
+
+.casesSection::before {
+  z-index: 1;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--studio-case-accent) 10%, transparent), transparent 24%),
+    linear-gradient(180deg, rgba(9, 7, 8, 0.4), rgba(9, 7, 8, 0.84)),
+    linear-gradient(90deg, rgba(9, 7, 8, 0.68), transparent 56%);
+}
+
+.hero::after,
+.servicesSection::after,
+.casesSection::after,
+.processSection::after,
+.closingSection::after {
+  z-index: 1;
+  opacity: 0.12;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.38), transparent 84%);
+}
+
+.heroInner,
+.sectionInner {
+  position: relative;
+  z-index: 2;
+  width: min(1260px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.heroInner {
+  min-height: 100svh;
+  padding: 136px 0 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 18px;
+}
+
+.heroMain,
+.heroSupport {
+  display: grid;
+  gap: 18px;
+  align-items: start;
+}
+
+.heroMain {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.heroStage {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.heroSupport {
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+}
+
+.sectionInner {
+  min-height: 100svh;
+  padding: 152px 0 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 34px;
+}
+
+.heroCopy,
+.heroStage,
+.heroSupport,
+.heroRibbon,
+.sectionPreludeStrip,
+.sectionHeading,
+.servicesLayout,
+.filterRail,
+.caseLayout,
+.processLayout,
+.closingLayout {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 700ms ease,
+    transform 860ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero[data-visible="true"] .heroCopy,
+.hero[data-visible="true"] .heroStage,
+.hero[data-visible="true"] .heroSupport,
+.hero[data-visible="true"] .heroRibbon,
+.processSection[data-visible="true"] .sectionPreludeStrip,
+.servicesSection[data-visible="true"] .sectionHeading,
+.servicesSection[data-visible="true"] .servicesLayout,
+.casesSection[data-visible="true"] .sectionHeading,
+.casesSection[data-visible="true"] .filterRail,
+.casesSection[data-visible="true"] .caseLayout,
+.closingSection[data-visible="true"] .sectionPreludeStrip,
+.processSection[data-visible="true"] .sectionHeading,
+.processSection[data-visible="true"] .processLayout,
+.closingSection[data-visible="true"] .closingLayout {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero[data-visible="true"] .heroStage,
+.hero[data-visible="true"] .heroSupport,
+.hero[data-visible="true"] .heroRibbon,
+.processSection[data-visible="true"] .sectionPreludeStrip,
+.servicesSection[data-visible="true"] .servicesLayout,
+.casesSection[data-visible="true"] .caseLayout,
+.closingSection[data-visible="true"] .sectionPreludeStrip,
+.processSection[data-visible="true"] .processLayout,
+.closingSection[data-visible="true"] .closingLayout {
+  transition-delay: 110ms;
+}
+
+.heroCopy {
+  display: grid;
+  gap: 18px;
+  max-width: 670px;
+  align-content: start;
+  padding-top: 4px;
+}
+
+.heroSignature {
+  color: rgba(245, 238, 228, 0.72);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.signatureLine {
+  width: 66px;
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--studio-accent) 92%, white), transparent);
+}
+
+.heroTitle {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  max-width: 8ch;
+  font-size: clamp(3.9rem, 8vw, 6.8rem);
+  line-height: 0.82;
+}
+
+.heroTitle em {
+  font-style: italic;
+  color: color-mix(in srgb, var(--studio-accent) 78%, #f0c1aa);
+}
+
+.heroLead,
+.sectionHeading p,
+.metaText,
+.metricItem p,
+.ledgerCard p,
+.rowCopy p,
+.disciplineLead,
+.signalCard p,
+.caseLead,
+.workflowSignalCard p,
+.processLead,
+.processStep p,
+.supportCopy p,
+.mosaicCopy p,
+.closingCopy p,
+.servicePaper p,
+.closingNote p {
+  color: rgba(245, 238, 228, 0.76);
+}
+
+.heroLead,
+.sectionHeading p,
+.caseLead,
+.processLead,
+.closingCopy p {
+  font-size: 1.03rem;
+  line-height: 1.78;
+}
+
+.heroLead {
+  max-width: 54ch;
+}
+
+.heroLedger {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ledgerCard {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+.ledgerCard strong {
+  font-size: 1.28rem;
+  line-height: 1;
+}
+
+.metricStrip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.metricItem {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+.metricItem strong {
+  font-size: 1.86rem;
+  line-height: 1;
+}
+
+.heroMeta {
+  display: grid;
+  gap: 18px;
+  width: 100%;
+  padding: 22px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(18px);
+}
+
+.heroMetaLead,
+.disciplineCopy,
+.caseStory,
+.processCopy,
+.closingCopy,
+.servicePaperHeader {
+  display: grid;
+  gap: 10px;
+}
+
+.metaTitle {
+  font-size: clamp(2.3rem, 4vw, 3.8rem);
+  line-height: 0.92;
+}
+
+.heroMetaFlow {
+  display: grid;
+  gap: 12px;
+}
+
+.heroMetaFlow div,
+.caseNotes div {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.heroMetaFlow small,
+.caseNotes small {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 238, 228, 0.5);
+}
+
+.heroMetaFlow strong,
+.caseNotes strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.heroPreviewRail,
+.deliverableStrip,
+.heroTags,
+.filterRail,
+.servicePaperMeta,
+.caseDossierMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.heroPreviewRail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.heroPreviewCard,
+.supportPanel,
+.disciplineVisual,
+.caseVisual,
+.mosaicCard,
+.servicePaper,
+.caseDossier {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --bg-x: 0px;
+  --bg-y: 0px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(14px);
+}
+
+.heroPreviewCard {
+  min-height: 148px;
+  padding: 0;
+  background-position: center;
+  background-size: cover;
+}
+
+.heroPreviewShade,
+.disciplineShade,
+.supportShade,
+.caseShade,
+.mosaicShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, transparent 12%, color-mix(in srgb, var(--studio-accent) 12%, transparent) 50%, transparent 84%),
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(9, 7, 8, 0.04), rgba(9, 7, 8, 0.8));
+}
+
+.heroPreviewCopy,
+.disciplineCaption,
+.caseCaption,
+.supportCopy,
+.mosaicCopy {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1;
+  display: grid;
+  gap: 6px;
+}
+
+.heroPreviewCopy strong {
+  font-size: 1.45rem;
+}
+
+.heroRibbon {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+.ribbonItem {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  align-content: start;
+  min-height: 144px;
+  padding: 16px 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(245, 238, 228, 0.72);
+  text-align: left;
+}
+
+.ribbonItem strong {
+  font-size: 1.2rem;
+}
+
+.ribbonItemActive,
+.filterChipActive {
+  border-color: color-mix(in srgb, var(--studio-accent) 56%, rgba(255, 255, 255, 0.1));
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+}
+
+.sectionHeading,
+.closingCopy {
+  max-width: 780px;
+}
+
+.sectionPreludeStrip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.sectionPreludeCard {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-height: 154px;
+  padding: 18px 20px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
+    linear-gradient(135deg, color-mix(in srgb, var(--studio-accent) 8%, transparent), transparent);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(16px);
+}
+
+.sectionPreludeCard span {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--studio-accent) 84%, white);
+}
+
+.sectionPreludeCard strong {
+  font-size: clamp(1.28rem, 2.1vw, 1.92rem);
+  line-height: 1.02;
+}
+
+.sectionPreludeCard p {
+  margin: 0;
+  color: rgba(245, 238, 228, 0.74);
+  font-size: 0.94rem;
+  line-height: 1.68;
+}
+
+.sectionHeading {
+  display: grid;
+  gap: 10px;
+}
+
+.sectionHeading h2,
+.disciplineCopy h2,
+.caseStory h2,
+.processCopy h2,
+.closingCopy h2 {
+  font-size: clamp(2.7rem, 5vw, 4.7rem);
+  line-height: 0.9;
+}
+
+.servicesLayout,
+.caseLayout,
+.processLayout,
+.closingLayout {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+
+.servicesLayout,
+.processLayout {
+  grid-template-columns: 300px minmax(0, 1fr);
+}
+
+.caseLayout {
+  grid-template-columns: 320px minmax(0, 1fr);
+  align-items: start;
+}
+
+.closingLayout {
+  grid-template-columns: 0.44fr 0.56fr;
+  align-items: start;
+}
+
+.disciplineRail,
+.caseList,
+.processRail {
+  display: grid;
+  gap: 10px;
+}
+
+.disciplineRail,
+.caseList,
+.processRail {
+  position: sticky;
+  top: 118px;
+}
+
+.disciplineRow,
+.caseRow {
+  display: grid;
+  grid-template-columns: auto 82px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: rgba(245, 238, 228, 0.72);
+  text-align: left;
+}
+
+.processStep {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  padding: 16px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: rgba(245, 238, 228, 0.72);
+  text-align: left;
+}
+
+.listThumb {
+  width: 82px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14);
+}
+
+.listThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.92) contrast(0.98);
+  transition:
+    transform 220ms ease,
+    filter 220ms ease;
+}
+
+.rowCopy {
+  display: grid;
+  gap: 4px;
+}
+
+.rowCopy strong,
+.processStep strong {
+  font-size: 1.36rem;
+}
+
+.rowCopy p {
+  font-size: 0.92rem;
+}
+
+.disciplineRowActive,
+.caseRowActive,
+.processStepActive {
+  color: #fff;
+  border-bottom-color: color-mix(in srgb, var(--studio-accent) 48%, rgba(255, 255, 255, 0.1));
+}
+
+.disciplineRowActive .listThumb,
+.caseRowActive .listThumb {
+  border-color: color-mix(in srgb, var(--studio-accent) 50%, rgba(255, 255, 255, 0.1));
+}
+
+.disciplineRow:hover .listThumb img,
+.caseRow:hover .listThumb img,
+.disciplineRowActive .listThumb img,
+.caseRowActive .listThumb img {
+  transform: scale(1.05);
+  filter: saturate(1) contrast(1.02);
+}
+
+.disciplineStage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 18px;
+}
+
+.disciplineVisual,
+.caseVisual {
+  min-height: 520px;
+}
+
+.supportPanel {
+  min-height: 300px;
+}
+
+.supportImage,
+.disciplineImage,
+.caseImage,
+.mosaicImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 260ms ease-out;
+}
+
+.supportPanel:hover .supportImage,
+.disciplineVisual:hover .disciplineImage,
+.caseVisual:hover .caseImage,
+.mosaicCard:hover .mosaicImage {
+  transform: scale(1.05) translate3d(var(--bg-x), var(--bg-y), 0);
+}
+
+.disciplineCopy,
+.servicePaper,
+.deliverableStrip,
+.signalGrid {
+  grid-column: 1 / -1;
+}
+
+.disciplineCaption strong,
+.caseCaption strong,
+.supportCopy strong,
+.mosaicCopy strong {
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
+  color: #fffaf5;
+}
+
+.servicePaper {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+}
+
+.servicePaperHeader strong {
+  font-size: 1.48rem;
+  line-height: 1.1;
+}
+
+.servicePaperMeta span,
+.caseDossierMeta small,
+.deliverableStrip span,
+.heroTags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5eee4;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.signalGrid,
+.caseSignalGrid,
+.workflowSignalGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.signalCard,
+.caseSignalCard,
+.workflowSignalCard,
+.processMarker,
+.caseStory {
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(14px);
+}
+
+.signalCard strong,
+.caseSignalCard strong,
+.workflowSignalCard strong {
+  font-size: 1.16rem;
+}
+
+.caseStage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 20px;
+  align-items: start;
+}
+
+.caseStory {
+  gap: 16px;
+}
+
+.caseDossier {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+
+.caseDossier strong {
+  font-size: 1.22rem;
+  line-height: 1.24;
+}
+
+.caseNotes {
+  display: grid;
+  gap: 14px;
+}
+
+.processStage {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(16px);
+}
+
+.processNumber {
+  font-size: clamp(5rem, 10vw, 8.4rem);
+  line-height: 0.8;
+  color: rgba(255, 255, 255, 0.12);
+}
+
+.processMarkers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.processMarker[data-active="true"] {
+  border-color: color-mix(in srgb, var(--studio-accent) 54%, rgba(255, 255, 255, 0.1));
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.closingNote {
+  display: grid;
+  gap: 10px;
+  max-width: 460px;
+  padding: 18px 20px;
+  border-left: 2px solid color-mix(in srgb, var(--studio-accent) 60%, rgba(255, 255, 255, 0.12));
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 0 22px 22px 0;
+}
+
+.mosaicGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.mosaicCard {
+  min-height: 320px;
+}
+
+.mosaicCard:nth-child(2),
+.mosaicCard:nth-child(3) {
+  min-height: 390px;
+}
+
+.emptyState {
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(245, 238, 228, 0.72);
+}
+
+@keyframes loadingSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes sceneFlash {
+  0% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+
+  18% {
+    opacity: 0.84;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 1160px) {
+  .topbar,
+  .heroMain,
+  .heroSupport,
+  .servicesLayout,
+  .disciplineStage,
+  .caseLayout,
+  .caseStage,
+  .processLayout,
+  .closingLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .navLinks,
+  .topbarActions {
+    justify-content: flex-start;
+  }
+
+  .heroPreviewRail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .heroRibbon,
+  .metricStrip,
+  .heroLedger,
+  .sectionPreludeStrip,
+  .signalGrid,
+  .caseSignalGrid,
+  .workflowSignalGrid,
+  .processMarkers,
+  .mosaicGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .disciplineRail,
+  .caseList,
+  .processRail {
+    position: static;
+  }
+}
+
+@media (max-width: 760px) {
+  .page {
+    cursor: auto;
+  }
+
+  .cursorAura,
+  .cursorDot {
+    display: none;
+  }
+
+  .topbar {
+    top: 12px;
+    left: 10px;
+    right: 10px;
+    padding: 14px;
+  }
+
+  .heroInner,
+  .sectionInner {
+    width: min(100% - 20px, 1260px);
+  }
+
+  .heroInner {
+    padding-top: 120px;
+    padding-bottom: 38px;
+  }
+
+  .sectionInner {
+    padding-top: 112px;
+    padding-bottom: 56px;
+  }
+
+  .heroTitle {
+    font-size: clamp(3.2rem, 15vw, 5rem);
+  }
+
+  .heroActions,
+  .topbarActions,
+  .closingActions {
+    width: 100%;
+  }
+
+  .backLink,
+  .workspaceLink,
+  .nextLink,
+  .primaryCta,
+  .secondaryCta {
+    width: 100%;
+  }
+
+  .heroRibbon {
+    margin-top: 4px;
+  }
+
+  .heroPreviewRail {
+    grid-template-columns: 1fr;
+  }
+
+  .disciplineRow,
+  .caseRow {
+    grid-template-columns: auto 68px 1fr;
+  }
+
+  .listThumb {
+    width: 68px;
+  }
+}
+
+@media (pointer: coarse) {
+  .page {
+    cursor: auto;
+  }
+
+  .cursorAura,
+  .cursorDot {
+    display: none;
+  }
+}

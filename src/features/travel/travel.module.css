@@ -1,0 +1,1381 @@
+.page {
+  --travel-accent: #0f8ab4;
+  --travel-deep: #0f2f42;
+  --travel-soft: #d8f1ff;
+  --travel-glow: rgba(15, 138, 180, 0.28);
+  min-height: 100vh;
+  color: #f6f3eb;
+  background: #091520;
+  cursor: none;
+}
+
+.page h1,
+.page h2,
+.page h3,
+.page strong {
+  font-family: "Marcellus", "Cormorant Garamond", serif;
+  letter-spacing: -0.04em;
+}
+
+.page p,
+.page a,
+.page button,
+.page span,
+.page small {
+  font-family: "Manrope", sans-serif;
+}
+
+.loadingScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 540ms ease,
+    visibility 540ms ease;
+}
+
+.loadingScreenVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loadingScreenBackdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, color-mix(in srgb, var(--travel-accent) 18%, transparent), transparent 24%),
+    linear-gradient(180deg, rgba(7, 17, 25, 0.94), rgba(7, 17, 25, 0.98));
+}
+
+.loadingBrand {
+  position: relative;
+  z-index: 1;
+  width: min(520px, calc(100% - 40px));
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.loadingBrand p {
+  margin: 0;
+  color: color-mix(in srgb, var(--travel-accent) 86%, white);
+  font-family: "Teko", sans-serif;
+  font-size: 0.98rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.loadingBrand strong {
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  line-height: 0.92;
+}
+
+.loadingSeal {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 18px 36px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(14px);
+}
+
+.loadingSeal::before,
+.loadingSeal::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.loadingSeal::before {
+  inset: 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  animation: slowSpin 14s linear infinite;
+}
+
+.loadingSeal::after {
+  inset: -12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.loadingSeal span {
+  font-family: "Teko", sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--travel-accent) 86%, white);
+}
+
+.loadingBar {
+  width: min(280px, 100%);
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.loadingBarFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--travel-accent) 84%, white), transparent);
+  transform: translateX(-100%);
+  animation: loadingSweep 1.4s ease-in-out infinite;
+}
+
+.cursorAura,
+.cursorDot,
+.transitionVeil {
+  position: fixed;
+  pointer-events: none;
+}
+
+.cursorAura,
+.cursorDot {
+  z-index: 90;
+  opacity: 0;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.cursorAura {
+  --cursor-scale: 1;
+  top: -110px;
+  left: -110px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--travel-accent) 36%, white), transparent 42%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 62%);
+  mix-blend-mode: screen;
+  filter: blur(10px);
+}
+
+.cursorDot {
+  --cursor-dot-scale: 1;
+  top: -8px;
+  left: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 8px color-mix(in srgb, var(--travel-accent) 16%, transparent),
+    0 0 22px color-mix(in srgb, var(--travel-accent) 42%, transparent);
+}
+
+.page[data-cursor="active"] .cursorAura,
+.page[data-cursor="active"] .cursorDot,
+.page[data-cursor="interactive"] .cursorAura,
+.page[data-cursor="interactive"] .cursorDot {
+  opacity: 1;
+}
+
+.page[data-cursor="interactive"] .cursorAura {
+  --cursor-scale: 1.22;
+}
+
+.page[data-cursor="interactive"] .cursorDot {
+  --cursor-dot-scale: 1.32;
+}
+
+.page[data-pressed="true"] .cursorAura {
+  --cursor-scale: 0.92;
+}
+
+.page[data-pressed="true"] .cursorDot {
+  --cursor-dot-scale: 0.82;
+}
+
+.transitionVeil {
+  inset: 0;
+  z-index: 70;
+  opacity: 0;
+  background-position: center;
+  background-size: cover;
+}
+
+.transitionVeil::before,
+.transitionVeil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.transitionVeil::before {
+  background:
+    linear-gradient(180deg, rgba(7, 17, 25, 0.12), rgba(7, 17, 25, 0.82)),
+    radial-gradient(circle at center, color-mix(in srgb, var(--travel-accent) 22%, transparent), transparent 28%);
+  backdrop-filter: blur(2px);
+}
+
+.transitionVeil::after {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.12;
+}
+
+.transitionVeilActive {
+  opacity: 1;
+  animation: destinationFlash 620ms ease forwards;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 26px;
+  background:
+    linear-gradient(180deg, rgba(8, 18, 27, 0.88), rgba(8, 18, 27, 0.46)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent 28%);
+  backdrop-filter: blur(18px) saturate(1.08);
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--travel-accent) 64%, white), transparent);
+  opacity: 0.54;
+}
+
+.brandBlock {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brandLabel,
+.eyebrow,
+.metaLabel,
+.storyKicker,
+.dayLabel,
+.destinationIndex,
+.postalCopy span,
+.closingNotes small,
+.heroMetaFlow small,
+.storyFacts small,
+.daySignals small {
+  font-family: "Teko", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.brandLabel,
+.eyebrow,
+.metaLabel,
+.storyKicker,
+.dayLabel,
+.destinationIndex,
+.postalCopy span {
+  color: color-mix(in srgb, var(--travel-accent) 86%, white);
+}
+
+.brandName {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.brandMark {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 12px 26px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(12px);
+}
+
+.brandMark span {
+  position: relative;
+  z-index: 1;
+  font-family: "Teko", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--travel-accent) 84%, white);
+}
+
+.brandMarkRing,
+.brandMarkLine {
+  position: absolute;
+  inset: 0;
+}
+
+.brandMarkRing::before,
+.brandMarkLine::before {
+  content: "";
+  position: absolute;
+}
+
+.brandMarkRing::before {
+  inset: 7px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  animation: slowSpin 16s linear infinite;
+}
+
+.brandMarkLine::before {
+  top: 6px;
+  bottom: 6px;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.48), transparent);
+  transform: translateX(-50%);
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.navLinks a {
+  position: relative;
+  color: rgba(246, 243, 235, 0.72);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.navLinks a:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.navLinkActive {
+  color: #fff;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--travel-accent) 22%, transparent);
+}
+
+.navLinkActive::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--travel-accent) 84%, white), transparent);
+}
+
+.topbarActions,
+.heroActions,
+.closingActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.backLink,
+.workspaceLink,
+.nextLink,
+.soundButton,
+.primaryCta,
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.backLink,
+.workspaceLink,
+.soundButton,
+.secondaryCta {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  backdrop-filter: blur(12px);
+}
+
+.nextLink,
+.primaryCta {
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, var(--travel-accent), color-mix(in srgb, var(--travel-accent) 54%, white));
+  color: #091520;
+  font-weight: 900;
+  box-shadow: 0 18px 44px var(--travel-glow);
+}
+
+.nextLink {
+  min-height: 52px;
+  padding: 0 20px;
+  gap: 10px;
+}
+
+.nextLink span {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.68;
+}
+
+.nextLink strong {
+  font-size: 0.95rem;
+}
+
+.backLink::before,
+.workspaceLink::before,
+.nextLink::before,
+.soundButton::before,
+.primaryCta::before,
+.secondaryCta::before,
+.ribbonItem::before {
+  content: "";
+  position: absolute;
+  inset: -30% auto -30% -18%;
+  width: 34%;
+  transform: rotate(14deg) translateX(-220%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.48), transparent);
+  pointer-events: none;
+  transition: transform 520ms ease;
+}
+
+.backLink:hover::before,
+.workspaceLink:hover::before,
+.nextLink:hover::before,
+.soundButton:hover::before,
+.primaryCta:hover::before,
+.secondaryCta:hover::before,
+.ribbonItem:hover::before {
+  transform: rotate(14deg) translateX(420%);
+}
+
+.backLink:hover,
+.workspaceLink:hover,
+.nextLink:hover,
+.soundButton:hover,
+.primaryCta:hover,
+.secondaryCta:hover,
+.ribbonItem:hover,
+.destinationRow:hover,
+.dayRow:hover {
+  transform: translateY(-1px);
+}
+
+.navLinks a:focus-visible,
+.backLink:focus-visible,
+.workspaceLink:focus-visible,
+.nextLink:focus-visible,
+.soundButton:focus-visible,
+.primaryCta:focus-visible,
+.secondaryCta:focus-visible,
+.ribbonItem:focus-visible,
+.destinationRow:focus-visible,
+.dayRow:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--travel-accent) 78%, white);
+  outline-offset: 3px;
+}
+
+.soundButton {
+  min-width: 128px;
+  font-weight: 800;
+}
+
+.soundButton span {
+  position: relative;
+  z-index: 1;
+}
+
+.soundButtonActive {
+  border-color: color-mix(in srgb, var(--travel-accent) 56%, transparent);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 24px color-mix(in srgb, var(--travel-accent) 16%, transparent);
+}
+
+.hero,
+.atlasSection,
+.itinerarySection,
+.postalSection,
+.closingSection {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --bg-x: 0px;
+  --bg-y: 0px;
+  --bg-x-invert: 0px;
+  --bg-y-invert: 0px;
+  --panel-x: 0px;
+  --panel-y: 0px;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+}
+
+.heroBackdrop,
+.heroVideo,
+.heroActiveLayer,
+.sectionBackdrop,
+.itineraryBackdrop {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  will-change: transform, opacity, filter;
+  transition:
+    transform 240ms ease-out,
+    filter 240ms ease-out,
+    opacity 240ms ease-out;
+}
+
+.heroBackdrop,
+.heroVideo,
+.sectionBackdrop,
+.itineraryBackdrop {
+  transform: scale(1.06) translate3d(var(--bg-x), var(--bg-y), 0);
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.heroVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.34;
+  mix-blend-mode: screen;
+}
+
+.heroActiveLayer {
+  opacity: 0.36;
+  mix-blend-mode: screen;
+  transform: scale(1.1) translate3d(var(--bg-x-invert), var(--bg-y-invert), 0);
+  animation: pulseFade 16s ease-in-out infinite;
+}
+
+.hero::before,
+.atlasSection::before,
+.itinerarySection::before,
+.postalSection::before,
+.closingSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero::before {
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--travel-accent) 24%, transparent), transparent 18%),
+    radial-gradient(circle at 14% 18%, color-mix(in srgb, var(--travel-accent) 20%, transparent), transparent 24%),
+    radial-gradient(circle at 82% 68%, rgba(250, 206, 140, 0.18), transparent 26%),
+    linear-gradient(180deg, rgba(6, 16, 24, 0.18), rgba(6, 16, 24, 0.76)),
+    linear-gradient(90deg, rgba(6, 16, 24, 0.44), transparent 44%, rgba(6, 16, 24, 0.22));
+}
+
+.hero::after,
+.atlasSection::after,
+.itinerarySection::after,
+.postalSection::after,
+.closingSection::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.18;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.42), transparent 84%);
+}
+
+.heroInner,
+.sectionInner {
+  position: relative;
+  z-index: 2;
+  width: min(1260px, calc(100% - 48px));
+  margin: 0 auto;
+  will-change: transform;
+  transition: transform 220ms ease-out;
+}
+
+.heroInner {
+  min-height: 100svh;
+  padding: 124px 0 124px;
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  align-items: end;
+  gap: 42px;
+  transform: perspective(1800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 760px;
+}
+
+.heroSignature {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(246, 243, 235, 0.76);
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.signatureLine {
+  width: 68px;
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--travel-accent) 92%, white), transparent);
+}
+
+.heroTitle {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  font-size: clamp(4.6rem, 9vw, 8.8rem);
+  line-height: 0.88;
+  text-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: color-mix(in srgb, var(--travel-accent) 78%, white);
+  text-shadow:
+    0 0 26px color-mix(in srgb, var(--travel-accent) 28%, transparent),
+    0 18px 48px rgba(0, 0, 0, 0.26);
+}
+
+.heroLead {
+  max-width: 56ch;
+  font-size: 1.12rem;
+  line-height: 1.75;
+  color: rgba(246, 243, 235, 0.84);
+}
+
+.metricStrip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.metricItem {
+  display: grid;
+  gap: 8px;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.metricItem strong {
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  line-height: 0.95;
+}
+
+.metricItem p {
+  max-width: 20ch;
+  color: rgba(246, 243, 235, 0.7);
+}
+
+.heroMeta {
+  display: grid;
+  gap: 20px;
+  align-self: center;
+  justify-self: end;
+  width: min(460px, 100%);
+  padding: 0 0 0 18px;
+  opacity: 0;
+  transform: translate3d(var(--panel-x), var(--panel-y), 0);
+  transition:
+    transform 220ms ease-out,
+    opacity 720ms ease;
+}
+
+.heroMetaTop,
+.heroMetaFlow,
+.heroTags,
+.storyFacts,
+.daySignals,
+.closingNotes {
+  display: grid;
+  gap: 14px;
+}
+
+.hero[data-visible="true"] .heroMeta {
+  opacity: 1;
+}
+
+.metaTitle {
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  line-height: 0.92;
+}
+
+.metaText {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: rgba(246, 243, 235, 0.82);
+}
+
+.heroMetaFlow {
+  gap: 12px;
+}
+
+.heroMetaFlow div,
+.storyFacts div,
+.daySignals div,
+.closingNotes div {
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.heroMetaFlow strong,
+.storyFacts strong,
+.daySignals strong,
+.closingNotes strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 1.18rem;
+}
+
+.heroTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.heroTags span,
+.storyHighlights span,
+.inclusionRibbon span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.heroRibbon {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 18px;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ribbonItem {
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  padding: 14px 16px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(8, 18, 27, 0.36);
+  color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  will-change: transform, background-color, box-shadow;
+}
+
+.ribbonItem span {
+  font-family: "Teko", sans-serif;
+  font-size: 0.86rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ribbonItem strong {
+  font-size: 1.25rem;
+}
+
+.ribbonItemActive {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.14);
+}
+
+.atlasSection::before {
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--travel-accent) 18%, transparent), transparent 22%),
+    linear-gradient(180deg, rgba(7, 17, 25, 0.72), rgba(7, 17, 25, 0.78)),
+    linear-gradient(90deg, rgba(7, 17, 25, 0.68), transparent 56%);
+}
+
+.itinerarySection::before {
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--travel-accent) 18%, transparent), transparent 22%),
+    linear-gradient(180deg, rgba(7, 17, 25, 0.52), rgba(7, 17, 25, 0.82)),
+    radial-gradient(circle at 72% 38%, color-mix(in srgb, var(--travel-accent) 18%, transparent), transparent 26%);
+}
+
+.postalSection::before {
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--travel-accent) 18%, transparent), transparent 22%),
+    radial-gradient(circle at top left, color-mix(in srgb, var(--travel-accent) 18%, transparent), transparent 24%),
+    linear-gradient(180deg, rgba(9, 21, 32, 0.94), rgba(9, 21, 32, 0.98));
+}
+
+.closingSection::before {
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--travel-accent) 18%, transparent), transparent 22%),
+    linear-gradient(180deg, rgba(7, 17, 25, 0.62), rgba(7, 17, 25, 0.88)),
+    linear-gradient(90deg, rgba(7, 17, 25, 0.78), transparent 52%);
+}
+
+.sectionInner {
+  min-height: 100svh;
+  padding: 132px 0 74px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 36px;
+  transform: perspective(1800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+}
+
+.sectionHeading,
+.itineraryHeading,
+.closingCopy {
+  display: grid;
+  gap: 10px;
+  max-width: 780px;
+}
+
+.sectionHeading h2,
+.itineraryHeading h2,
+.storyLead,
+.dayStage h2,
+.closingCopy h2 {
+  font-size: clamp(2.8rem, 5vw, 5.2rem);
+  line-height: 0.9;
+}
+
+.sectionHeading p,
+.itineraryHeading p,
+.closingCopy p,
+.storyLead,
+.destinationMain p,
+.postalCopy p,
+.dayStage p {
+  color: rgba(246, 243, 235, 0.8);
+}
+
+.heroCopy,
+.heroRibbon,
+.sectionHeading,
+.itineraryHeading,
+.atlasLayout,
+.itineraryLayout,
+.inclusionRibbon,
+.postalGrid,
+.closingLayout {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0);
+  transition:
+    opacity 720ms ease,
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero[data-visible="true"] .heroCopy,
+.hero[data-visible="true"] .heroRibbon,
+.atlasSection[data-visible="true"] .sectionHeading,
+.atlasSection[data-visible="true"] .atlasLayout,
+.itinerarySection[data-visible="true"] .itineraryHeading,
+.itinerarySection[data-visible="true"] .itineraryLayout,
+.itinerarySection[data-visible="true"] .inclusionRibbon,
+.postalSection[data-visible="true"] .sectionHeading,
+.postalSection[data-visible="true"] .postalGrid,
+.closingSection[data-visible="true"] .closingLayout {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero[data-visible="true"] .heroRibbon,
+.atlasSection[data-visible="true"] .atlasLayout,
+.itinerarySection[data-visible="true"] .itineraryLayout,
+.postalSection[data-visible="true"] .postalGrid,
+.closingSection[data-visible="true"] .closingLayout {
+  transition-delay: 120ms;
+}
+
+.atlasLayout,
+.itineraryLayout,
+.closingLayout {
+  display: grid;
+  gap: 28px;
+}
+
+.atlasLayout {
+  grid-template-columns: 0.42fr 0.58fr;
+  align-items: end;
+}
+
+.itineraryLayout {
+  grid-template-columns: 0.34fr 0.66fr;
+  align-items: end;
+}
+
+.closingLayout {
+  grid-template-columns: 0.62fr 0.38fr;
+  align-items: end;
+}
+
+.destinationList,
+.dayRail {
+  display: grid;
+  gap: 8px;
+}
+
+.destinationRow,
+.dayRow {
+  display: grid;
+  gap: 6px;
+  align-items: end;
+  justify-items: start;
+  padding: 16px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  color: rgba(246, 243, 235, 0.64);
+  text-align: left;
+}
+
+.destinationRow {
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+}
+
+.destinationMain {
+  display: grid;
+  gap: 4px;
+}
+
+.destinationMain strong,
+.dayRow strong {
+  font-size: 1.7rem;
+}
+
+.destinationRow small {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.destinationRowActive,
+.dayRowActive {
+  color: #fff;
+  border-bottom-color: color-mix(in srgb, var(--travel-accent) 58%, white);
+  text-shadow: 0 0 22px color-mix(in srgb, var(--travel-accent) 16%, transparent);
+}
+
+.destinationRowActive .destinationMain strong,
+.dayRowActive strong {
+  transform: translateX(6px);
+  transition: transform 220ms ease-out;
+}
+
+.destinationStory {
+  display: grid;
+  gap: 18px;
+  align-content: end;
+  padding-left: 16px;
+  transform: translate3d(var(--panel-x), var(--panel-y), 0);
+  transition: transform 220ms ease-out;
+}
+
+.storyCount {
+  font-family: "Marcellus", serif;
+  font-size: clamp(6rem, 12vw, 11rem);
+  line-height: 0.78;
+  color: rgba(255, 255, 255, 0.12);
+  text-shadow: 0 0 34px rgba(0, 0, 0, 0.2);
+}
+
+.storyKicker {
+  margin-top: -26px;
+}
+
+.storyHighlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.storyFacts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.dayStage {
+  display: grid;
+  gap: 18px;
+  align-content: end;
+  min-height: 48svh;
+  transform: translate3d(var(--panel-x), var(--panel-y), 0);
+  transition: transform 220ms ease-out;
+}
+
+.dayStage p {
+  max-width: 50ch;
+  font-size: 1.12rem;
+  line-height: 1.8;
+}
+
+.daySignals {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.inclusionRibbon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.postalGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: end;
+}
+
+.postalFrame {
+  position: relative;
+  min-height: 68svh;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --bg-x: 0px;
+  --bg-y: 0px;
+  --bg-x-invert: 0px;
+  --bg-y-invert: 0px;
+  --panel-x: 0px;
+  --panel-y: 0px;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform: perspective(1600px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(0);
+  transition:
+    transform 220ms ease-out,
+    box-shadow 220ms ease-out,
+    border-color 220ms ease-out;
+  will-change: transform, box-shadow;
+}
+
+.postalFrame:nth-child(2) {
+  min-height: 78svh;
+}
+
+.postalFrame:hover {
+  transform: perspective(1600px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 26px 50px rgba(0, 0, 0, 0.26),
+    0 0 42px color-mix(in srgb, var(--travel-accent) 18%, transparent);
+}
+
+.postalImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  transition: transform 320ms ease-out;
+}
+
+.postalFrame:hover .postalImage {
+  transform: scale(1.08) translate3d(var(--bg-x), var(--bg-y), 0);
+}
+
+.postalShade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), color-mix(in srgb, var(--travel-accent) 26%, transparent), transparent 18%),
+    linear-gradient(180deg, rgba(7, 17, 25, 0.08), rgba(7, 17, 25, 0.78)),
+    radial-gradient(circle at bottom right, color-mix(in srgb, var(--travel-accent) 18%, transparent), transparent 26%);
+}
+
+.postalShade::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.2) 40%, transparent 56%);
+  opacity: 0;
+  transform: translateX(-48%);
+  transition:
+    opacity 320ms ease,
+    transform 520ms ease;
+}
+
+.postalFrame:hover .postalShade::after {
+  opacity: 0.8;
+  transform: translateX(46%);
+}
+
+.postalCopy {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  display: grid;
+  gap: 8px;
+}
+
+.postalCopy strong {
+  font-size: 2rem;
+}
+
+.closingNotes {
+  gap: 18px;
+  transform: translate3d(var(--panel-x), var(--panel-y), 0);
+  transition: transform 220ms ease-out;
+}
+
+.emptyState {
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(246, 243, 235, 0.72);
+}
+
+@keyframes pulseFade {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+
+  50% {
+    opacity: 0.42;
+  }
+}
+
+@keyframes slowSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes destinationFlash {
+  0% {
+    opacity: 0;
+    transform: scale(1.06);
+    filter: blur(0);
+  }
+
+  18% {
+    opacity: 0.92;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+    filter: blur(6px);
+  }
+}
+
+@media (max-width: 1160px) {
+  .topbar,
+  .heroInner,
+  .atlasLayout,
+  .itineraryLayout,
+  .closingLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .navLinks,
+  .topbarActions {
+    justify-content: flex-start;
+  }
+
+  .heroMeta {
+    justify-self: start;
+    padding-left: 0;
+  }
+
+  .heroRibbon,
+  .storyFacts,
+  .daySignals,
+  .postalGrid,
+  .metricStrip {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .page {
+    cursor: auto;
+  }
+
+  .loadingScreen {
+    display: none;
+  }
+
+  .loadingBrand strong {
+    font-size: clamp(1.8rem, 10vw, 2.8rem);
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    padding: 16px 14px;
+  }
+
+  .heroInner,
+  .sectionInner {
+    width: min(100% - 20px, 1260px);
+  }
+
+  .heroInner {
+    min-height: auto;
+    padding-top: 34px;
+    padding-bottom: 48px;
+  }
+
+  .sectionInner {
+    padding-top: 88px;
+    padding-bottom: 56px;
+  }
+
+  .heroTitle {
+    font-size: clamp(2.8rem, 12vw, 4.2rem);
+    line-height: 0.92;
+    text-wrap: balance;
+  }
+
+  .heroActions,
+  .closingActions,
+  .topbarActions {
+    width: 100%;
+  }
+
+  .topbarActions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .soundButton {
+    display: none;
+  }
+
+  .backLink,
+  .workspaceLink,
+  .nextLink,
+  .soundButton,
+  .primaryCta,
+  .secondaryCta {
+    width: 100%;
+  }
+
+  .nextLink {
+    grid-column: 1 / -1;
+  }
+
+  .heroCopy {
+    gap: 18px;
+  }
+
+  .heroMeta {
+    gap: 14px;
+  }
+
+  .heroRibbon {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: min(100% - 20px, 1260px);
+    margin: 0 auto 20px;
+    grid-template-columns: 1fr;
+  }
+
+  .ribbonItem,
+  .destinationRow {
+    grid-template-columns: 1fr;
+  }
+
+  .postalFrame,
+  .postalFrame:nth-child(2) {
+    min-height: 54svh;
+  }
+}
+
+@media (pointer: coarse) {
+  .page {
+    cursor: auto;
+  }
+
+  .cursorAura,
+  .cursorDot {
+    display: none;
+  }
+}

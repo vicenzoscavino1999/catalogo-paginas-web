@@ -1,0 +1,223 @@
+.page {
+  --theme-accent: #1d2b43;
+}
+
+.hero {
+  display: grid;
+  gap: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  line-height: 0.9;
+}
+
+.hero p {
+  max-width: 72ch;
+  color: rgba(24, 33, 31, 0.72);
+  line-height: 1.75;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tabRail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tabButton {
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(24, 33, 31, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+  font-weight: 800;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.tabButton:hover {
+  transform: translateY(-1px);
+}
+
+.tabButtonActive {
+  background: var(--theme-accent);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 18px 38px rgba(29, 43, 67, 0.22);
+}
+
+.editorLayout {
+  display: grid;
+  grid-template-columns: 0.76fr 1.24fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.metaPanel,
+.jsonPanel {
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+  border-radius: 26px;
+  border: 1px solid rgba(24, 33, 31, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.metaPanel h2,
+.jsonPanel h2 {
+  font-size: 2rem;
+  line-height: 0.92;
+}
+
+.metaPanel p,
+.jsonPanel p {
+  color: rgba(24, 33, 31, 0.72);
+  line-height: 1.7;
+}
+
+.metaGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field span {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(24, 33, 31, 0.58);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(24, 33, 31, 0.12);
+  background: #fff;
+  padding: 14px 16px;
+}
+
+.inputInvalid {
+  border-color: rgba(191, 78, 78, 0.58) !important;
+  box-shadow: 0 0 0 3px rgba(191, 78, 78, 0.12);
+}
+
+.field textarea,
+.jsonArea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.fieldError {
+  color: #8a3131;
+  font-size: 0.83rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.colorRow {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 10px;
+}
+
+.colorPicker {
+  padding: 4px;
+  min-height: 52px;
+}
+
+.jsonArea {
+  width: 100%;
+  min-height: 560px;
+  padding: 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(24, 33, 31, 0.12);
+  background: #101621;
+  color: #edf2ff;
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.jsonAreaInvalid {
+  border-color: rgba(191, 78, 78, 0.62);
+  box-shadow: 0 0 0 3px rgba(191, 78, 78, 0.12);
+}
+
+.fieldErrorPanel {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(191, 78, 78, 0.1);
+  color: #7a2e2e;
+}
+
+.fieldErrorTitle {
+  font-size: 0.95rem;
+}
+
+.panelActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.statusOk,
+.statusError {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  font-weight: 700;
+}
+
+.statusOk {
+  background: rgba(71, 151, 102, 0.12);
+  color: #29543a;
+}
+
+.statusError {
+  background: rgba(191, 78, 78, 0.12);
+  color: #7a2e2e;
+}
+
+.statusTitle {
+  font-size: 0.95rem;
+}
+
+.statusList {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.codeNote {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(24, 33, 31, 0.05);
+  color: rgba(24, 33, 31, 0.7);
+  line-height: 1.65;
+}
+
+@media (max-width: 1040px) {
+  .editorLayout {
+    grid-template-columns: 1fr;
+  }
+}

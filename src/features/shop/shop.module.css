@@ -1,0 +1,2014 @@
+.page {
+  --theme-accent: #3d7d42;
+  --shop-accent: #55715e;
+  --shop-soft: #edf2ea;
+  --shop-deep: #183126;
+  --shop-contrast: #fffaf2;
+  --shop-warm: #d7c3a2;
+  min-height: 100vh;
+  color: #1a241f;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(215, 195, 162, 0.18), transparent 18%),
+    radial-gradient(circle at 86% 8%, rgba(85, 113, 94, 0.1), transparent 20%),
+    linear-gradient(180deg, #f6f1e7 0%, #efe8db 48%, #f5efe5 100%);
+  cursor: none;
+}
+
+.page h1,
+.page h2,
+.page h3,
+.page strong {
+  font-family: "Fraunces", serif;
+  letter-spacing: -0.04em;
+}
+
+.page p {
+  font-family: "Manrope", sans-serif;
+}
+
+.page a,
+.page button,
+.page span,
+.page small,
+.page label,
+.page input {
+  font-family: "Syne", sans-serif;
+}
+
+.page::before,
+.page::after,
+.pageBloom,
+.transitionVeil,
+.cursorAura,
+.cursorDot {
+  position: fixed;
+  pointer-events: none;
+}
+
+.page::before,
+.page::after {
+  content: "";
+  inset: 0;
+}
+
+.page::before {
+  z-index: 0;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.38) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px);
+  background-size: 128px 128px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.26), transparent 88%);
+}
+
+.page::after {
+  z-index: 0;
+  opacity: 0.36;
+  background:
+    radial-gradient(circle at var(--page-pointer-x) var(--page-pointer-y), rgba(255, 250, 242, 0.84), transparent 14%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 34%);
+}
+
+.pageBloom {
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at var(--page-pointer-x) var(--page-pointer-y), color-mix(in srgb, var(--shop-accent) 14%, white), transparent 12%),
+    radial-gradient(circle at calc(var(--page-pointer-x) + 120px) calc(var(--page-pointer-y) - 80px), rgba(255, 250, 243, 0.6), transparent 10%);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+}
+
+.transitionVeil,
+.cursorAura,
+.cursorDot {
+  opacity: 0;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.transitionVeil {
+  inset: 0;
+  z-index: 90;
+  background-position: center;
+  background-size: cover;
+}
+
+.transitionVeil::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(246, 241, 231, 0.18), rgba(240, 232, 220, 0.92)),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.36), transparent 26%);
+}
+
+.transitionVeilActive {
+  animation: sceneFlash 520ms ease forwards;
+}
+
+.cursorAura {
+  --cursor-scale: 1;
+  top: -76px;
+  left: -76px;
+  z-index: 110;
+  width: 152px;
+  height: 152px;
+  border-radius: 44% 56% 63% 37% / 40% 42% 58% 60%;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.72), transparent 36%),
+    radial-gradient(circle, color-mix(in srgb, var(--shop-accent) 20%, white), transparent 58%);
+  filter: blur(12px);
+  mix-blend-mode: screen;
+}
+
+.cursorDot {
+  --cursor-dot-scale: 1;
+  top: -8px;
+  left: -8px;
+  z-index: 111;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 0 0 10px color-mix(in srgb, var(--shop-accent) 10%, transparent),
+    0 0 18px color-mix(in srgb, var(--shop-accent) 18%, transparent);
+}
+
+.page[data-cursor="active"] .cursorAura,
+.page[data-cursor="active"] .cursorDot,
+.page[data-cursor="interactive"] .cursorAura,
+.page[data-cursor="interactive"] .cursorDot {
+  opacity: 1;
+}
+
+.page[data-cursor="interactive"] .cursorAura {
+  --cursor-scale: 1.18;
+}
+
+.page[data-cursor="interactive"] .cursorDot {
+  --cursor-dot-scale: 1.22;
+}
+
+.page[data-pressed="true"] .cursorAura {
+  --cursor-scale: 0.92;
+}
+
+.page[data-pressed="true"] .cursorDot {
+  --cursor-dot-scale: 0.82;
+}
+
+.scrollMeter {
+  position: fixed;
+  right: 22px;
+  bottom: 24px;
+  z-index: 85;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 12px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(40, 46, 40, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 252, 246, 0.84), rgba(255, 248, 239, 0.72)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent 52%);
+  box-shadow: 0 18px 36px rgba(89, 67, 46, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.scrollMeterLine,
+.scrollMeterFill {
+  width: 3px;
+  height: 96px;
+  border-radius: 999px;
+}
+
+.scrollMeterLine {
+  background: rgba(40, 46, 40, 0.12);
+}
+
+.scrollMeterFill {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--shop-accent) 84%, white), color-mix(in srgb, var(--shop-warm) 74%, white));
+  transform: translateX(-50%) scaleY(var(--scroll-progress));
+  transform-origin: top;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--shop-accent) 18%, transparent);
+}
+
+.scrollMeterValue,
+.scrollMeterLabel {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.scrollMeterValue {
+  color: rgba(26, 36, 31, 0.54);
+}
+
+.scrollMeterLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(40, 46, 40, 0.08);
+  background: rgba(255, 255, 255, 0.68);
+  color: rgba(26, 36, 31, 0.54);
+}
+
+.topbar {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 80;
+  width: min(1320px, calc(100% - 40px));
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 22px;
+  padding: 18px 22px;
+  border-radius: 28px;
+  border: 1px solid rgba(43, 52, 42, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 251, 245, 0.84), rgba(255, 247, 238, 0.62)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.32), transparent 34%);
+  backdrop-filter: blur(18px) saturate(1.05);
+  box-shadow: 0 18px 40px rgba(89, 67, 46, 0.08);
+  transform: translateX(-50%);
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease;
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--shop-accent) 60%, white), transparent);
+  opacity: 0.7;
+}
+
+.topbarHidden {
+  opacity: 0;
+  transform: translate3d(-50%, -132%, 0);
+  pointer-events: none;
+}
+
+.topbarCompact {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 246, 0.92), rgba(255, 248, 239, 0.74)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.38), transparent 34%);
+  box-shadow: 0 14px 30px rgba(89, 67, 46, 0.08);
+}
+
+.topbarCompact .brandName {
+  font-size: 1.3rem;
+}
+
+.topbarCompact .navLinks {
+  gap: 14px;
+}
+
+.brandBlock,
+.heroHeader,
+.heroActions,
+.topbarActions,
+.productActions,
+.featuredProductActions,
+.quantityControls,
+.checkoutActions,
+.closingActions,
+.focusFooter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.brandBlock {
+  display: grid;
+  gap: 5px;
+}
+
+.brandTag,
+.brandLine,
+.eyebrow,
+.sectionLabel,
+.focusBadge,
+.metricCard span,
+.signalCard span,
+.collectionSceneCopy span,
+.collectionSceneMeta small,
+.miniProductCopy span,
+.focusMeta small,
+.specCard span,
+.productCardHead span,
+.productCardMeta span,
+.bagSummaryCard span,
+.bagHighlightCard span,
+.quantityPill,
+.totalCard span,
+.fulfillmentCaption span,
+.stepCard small,
+.closingStatement span,
+.moodCopy span,
+.heroTags span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.brandTag,
+.brandLine,
+.eyebrow,
+.sectionLabel,
+.metricCard span,
+.signalCard span,
+.specCard span,
+.bagSummaryCard span,
+.bagHighlightCard span,
+.closingStatement span,
+.heroTags span {
+  color: color-mix(in srgb, var(--shop-accent) 84%, #2d2a22);
+}
+
+.brandName {
+  font-size: 1.42rem;
+  line-height: 1;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.navLinks a {
+  position: relative;
+  color: rgba(26, 36, 31, 0.66);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.navLinkActive {
+  color: #1b2b21;
+}
+
+.navLinkActive::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--shop-accent) 82%, white), transparent);
+}
+
+.backLink,
+.workspaceLink,
+.nextLink,
+.primaryCta,
+.secondaryCta,
+.primaryButton,
+.secondaryButton,
+.qtyButton {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 41, 35, 0.1);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.backLink:focus-visible,
+.workspaceLink:focus-visible,
+.nextLink:focus-visible,
+.primaryCta:focus-visible,
+.secondaryCta:focus-visible,
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible,
+.qtyButton:focus-visible,
+.collectionScene:focus-visible,
+.miniProductCard:focus-visible,
+.productThumbButton:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--shop-accent) 74%, white);
+  outline-offset: 4px;
+}
+
+.backLink::before,
+.workspaceLink::before,
+.nextLink::before,
+.primaryCta::before,
+.secondaryCta::before,
+.primaryButton::before,
+.secondaryButton::before,
+.qtyButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(115deg, transparent 12%, rgba(255, 255, 255, 0.42) 48%, transparent 82%);
+  transform: translateX(-130%);
+  transition: transform 540ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.backLink,
+.workspaceLink,
+.secondaryButton,
+.qtyButton,
+.secondaryCta {
+  background: rgba(255, 255, 255, 0.6);
+  color: #1a241f;
+}
+
+.nextLink,
+.primaryCta,
+.primaryButton {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--shop-deep), color-mix(in srgb, var(--shop-accent) 70%, #efe4d0));
+  color: #fff;
+  box-shadow: 0 16px 36px color-mix(in srgb, var(--shop-accent) 16%, transparent);
+}
+
+.nextLink {
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 22px;
+}
+
+.backLink:hover,
+.workspaceLink:hover,
+.nextLink:hover,
+.primaryCta:hover,
+.secondaryCta:hover,
+.primaryButton:hover,
+.secondaryButton:hover,
+.qtyButton:hover,
+.navLinks a:hover {
+  transform: translateY(-2px);
+}
+
+.backLink:hover::before,
+.workspaceLink:hover::before,
+.nextLink:hover::before,
+.primaryCta:hover::before,
+.secondaryCta:hover::before,
+.primaryButton:hover::before,
+.secondaryButton:hover::before,
+.qtyButton:hover::before {
+  transform: translateX(130%);
+}
+
+.hero,
+.collectionsSection,
+.productsSection,
+.bagSection,
+.closingSection {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --bg-x: 0px;
+  --bg-y: 0px;
+  --panel-x: 0px;
+  --panel-y: 0px;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+}
+
+.hero::before,
+.collectionsSection::before,
+.productsSection::before,
+.bagSection::before,
+.closingSection::before,
+.hero::after,
+.productsSection::after,
+.bagSection::after,
+.closingSection::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero::before,
+.productsSection::before,
+.bagSection::before,
+.closingSection::before {
+  z-index: 1;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.3), transparent 16%),
+    linear-gradient(180deg, rgba(245, 239, 230, 0.24), rgba(241, 233, 220, 0.92));
+}
+
+.collectionsSection::before {
+  z-index: 1;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--shop-accent) 10%, transparent), transparent 20%),
+    linear-gradient(180deg, rgba(255, 250, 243, 0.88), rgba(246, 240, 232, 0.72));
+}
+
+.hero::after,
+.productsSection::after,
+.bagSection::after,
+.closingSection::after {
+  z-index: 1;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 128px 128px;
+  opacity: 0.16;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 88%);
+}
+
+.heroBackdrop,
+.heroBackdropAccent,
+.sectionBackdrop {
+  position: absolute;
+  inset: 0;
+}
+
+.heroBackdrop,
+.heroBackdropAccent,
+.sectionBackdrop,
+.sceneImage,
+.miniProductImage,
+.collectionSceneImage,
+.featuredProductImage,
+.productThumbImage,
+.fulfillmentImage,
+.moodImage,
+.benefitImage {
+  will-change: transform;
+}
+
+.heroBackdrop,
+.sectionBackdrop {
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heroBackdropAccent {
+  z-index: 0;
+  opacity: 0.36;
+  mix-blend-mode: multiply;
+}
+
+.heroBackdrop .backdropImage {
+  animation: heroDrift 26s ease-in-out infinite alternate;
+}
+
+.heroBackdropAccent .backdropImage {
+  animation: heroDriftReverse 30s ease-in-out infinite alternate;
+}
+
+.sectionBackdrop .backdropImage {
+  animation: heroDriftReverse 34s ease-in-out infinite alternate;
+}
+
+.backdropImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.06) translate3d(var(--bg-x), var(--bg-y), 0);
+  filter: saturate(0.86) contrast(0.94);
+}
+
+.heroInner,
+.sectionInner {
+  position: relative;
+  z-index: 2;
+  width: min(1320px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.heroInner {
+  min-height: 100svh;
+  padding: 138px 0 54px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.sectionInner {
+  min-height: 100svh;
+  padding: 144px 0 70px;
+  display: grid;
+  align-content: start;
+  gap: 28px;
+}
+
+.heroCopy,
+.heroStage,
+.heroEditorialStrip,
+.metricRail,
+.sectionHeader,
+.collectionSceneGrid,
+.signalStrip,
+.productsLayout,
+.bagHeroStrip,
+.bagLayout,
+.closingLead,
+.benefitGallery,
+.moodboardGrid {
+  position: relative;
+  z-index: 2;
+}
+
+.heroCopy,
+.heroStage,
+.heroEditorialStrip,
+.metricRail,
+.sectionHeader,
+.collectionSceneGrid,
+.signalStrip,
+.productsLayout,
+.bagHeroStrip,
+.bagLayout,
+.closingLead,
+.benefitGallery,
+.moodboardGrid,
+.collectionScene,
+.signalCard,
+.productCard,
+.bagHighlightCard,
+.stepCard,
+.moodCard,
+.benefitCard,
+.focusCard,
+.collectionSummary,
+.featuredProduct,
+.bagSummaryCard,
+.bagPanel,
+.fulfillmentPanel,
+.closingStatement {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+  transition:
+    opacity 720ms ease,
+    transform 860ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero[data-visible="true"] .heroCopy,
+.hero[data-visible="true"] .heroStage,
+.hero[data-visible="true"] .heroEditorialStrip,
+.hero[data-visible="true"] .metricRail,
+.collectionsSection[data-visible="true"] .sectionHeader,
+.collectionsSection[data-visible="true"] .collectionSceneGrid,
+.collectionsSection[data-visible="true"] .signalStrip,
+.productsSection[data-visible="true"] .sectionHeader,
+.productsSection[data-visible="true"] .productsLayout,
+.bagSection[data-visible="true"] .sectionHeader,
+.bagSection[data-visible="true"] .bagHeroStrip,
+.bagSection[data-visible="true"] .bagLayout,
+.closingSection[data-visible="true"] .closingLead,
+.closingSection[data-visible="true"] .benefitGallery,
+.closingSection[data-visible="true"] .moodboardGrid,
+.collectionsSection[data-visible="true"] .collectionScene,
+.collectionsSection[data-visible="true"] .signalCard,
+.productsSection[data-visible="true"] .productCard,
+.bagSection[data-visible="true"] .bagHighlightCard,
+.bagSection[data-visible="true"] .stepCard,
+.closingSection[data-visible="true"] .moodCard,
+.closingSection[data-visible="true"] .benefitCard,
+.hero[data-visible="true"] .focusCard,
+.productsSection[data-visible="true"] .collectionSummary,
+.productsSection[data-visible="true"] .featuredProduct,
+.bagSection[data-visible="true"] .bagSummaryCard,
+.bagSection[data-visible="true"] .bagPanel,
+.bagSection[data-visible="true"] .fulfillmentPanel,
+.closingSection[data-visible="true"] .closingStatement {
+  opacity: 1;
+  transform: none;
+}
+
+.hero[data-visible="true"] .heroStage,
+.hero[data-visible="true"] .heroEditorialStrip,
+.hero[data-visible="true"] .metricRail,
+.collectionsSection[data-visible="true"] .collectionSceneGrid,
+.productsSection[data-visible="true"] .productsLayout,
+.bagSection[data-visible="true"] .bagHeroStrip,
+.bagSection[data-visible="true"] .bagLayout,
+.closingSection[data-visible="true"] .benefitGallery,
+.closingSection[data-visible="true"] .moodboardGrid {
+  transition-delay: 90ms;
+}
+
+.collectionsSection[data-visible="true"] .collectionScene:nth-child(1),
+.collectionsSection[data-visible="true"] .signalCard:nth-child(1),
+.productsSection[data-visible="true"] .productCard:nth-child(1),
+.bagSection[data-visible="true"] .bagHighlightCard:nth-child(1),
+.bagSection[data-visible="true"] .stepCard:nth-child(1),
+.closingSection[data-visible="true"] .benefitCard:nth-child(1),
+.closingSection[data-visible="true"] .moodCard:nth-child(1) {
+  transition-delay: 60ms;
+}
+
+.collectionsSection[data-visible="true"] .collectionScene:nth-child(2),
+.collectionsSection[data-visible="true"] .signalCard:nth-child(2),
+.productsSection[data-visible="true"] .productCard:nth-child(2),
+.bagSection[data-visible="true"] .bagHighlightCard:nth-child(2),
+.bagSection[data-visible="true"] .stepCard:nth-child(2),
+.closingSection[data-visible="true"] .benefitCard:nth-child(2),
+.closingSection[data-visible="true"] .moodCard:nth-child(2) {
+  transition-delay: 120ms;
+}
+
+.collectionsSection[data-visible="true"] .collectionScene:nth-child(3),
+.collectionsSection[data-visible="true"] .signalCard:nth-child(3),
+.productsSection[data-visible="true"] .productCard:nth-child(3),
+.bagSection[data-visible="true"] .bagHighlightCard:nth-child(3),
+.bagSection[data-visible="true"] .stepCard:nth-child(3),
+.closingSection[data-visible="true"] .benefitCard:nth-child(3),
+.closingSection[data-visible="true"] .moodCard:nth-child(3) {
+  transition-delay: 180ms;
+}
+
+.collectionsSection[data-visible="true"] .collectionScene:nth-child(4),
+.productsSection[data-visible="true"] .productCard:nth-child(4),
+.closingSection[data-visible="true"] .benefitCard:nth-child(4),
+.closingSection[data-visible="true"] .moodCard:nth-child(4) {
+  transition-delay: 240ms;
+}
+
+.heroCopy {
+  display: grid;
+  gap: 22px;
+  align-content: center;
+}
+
+.heroStage,
+.collectionSummary,
+.signalCard,
+.bagSummaryCard,
+.bagHighlightCard,
+.fulfillmentCopy,
+.closingStatement {
+  display: grid;
+  gap: 10px;
+}
+
+.heroTitle {
+  margin: 0;
+  max-width: 10ch;
+  font-size: clamp(3.8rem, 7vw, 6.8rem);
+  line-height: 0.88;
+}
+
+.heroLead,
+.sceneCopy p,
+.signalCard p,
+.sectionCopy p,
+.collectionSummary p,
+.featuredProductLead,
+.productCardBody p,
+.bagSummaryCard p,
+.bagHighlightCard p,
+.fulfillmentCopy p,
+.stepCard p,
+.closingStatement p,
+.moodCopy p,
+.focusCopy {
+  margin: 0;
+  color: rgba(26, 36, 31, 0.7);
+}
+
+.heroLead,
+.sectionCopy p,
+.featuredProductLead,
+.fulfillmentCopy p {
+  max-width: 56ch;
+  font-size: 1rem;
+  line-height: 1.78;
+}
+
+.metricRail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metricCard,
+.focusCard,
+.signalCard,
+.collectionSummary,
+.featuredProduct,
+.bagSummaryCard,
+.bagHighlightCard,
+.bagPanel,
+.fulfillmentPanel,
+.closingStatement {
+  border-radius: 28px;
+  border: 1px solid rgba(31, 41, 35, 0.08);
+  background: rgba(255, 251, 245, 0.7);
+  box-shadow: 0 24px 50px rgba(88, 67, 46, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.metricCard,
+.heroEditorialCard,
+.signalCard,
+.specCard,
+.bagHighlightCard,
+.stepCard,
+.closingStatement {
+  position: relative;
+  overflow: hidden;
+}
+
+.metricCard::after,
+.heroEditorialCard::after,
+.signalCard::after,
+.specCard::after,
+.bagHighlightCard::after,
+.stepCard::after,
+.closingStatement::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(118deg, transparent 10%, rgba(255, 255, 255, 0.16) 48%, transparent 78%);
+  transform: translateX(-120%);
+  transition: transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.metricCard:hover::after,
+.heroEditorialCard:hover::after,
+.signalCard:hover::after,
+.specCard:hover::after,
+.bagHighlightCard:hover::after,
+.stepCard:hover::after,
+.closingStatement:hover::after {
+  transform: translateX(120%);
+}
+
+.metricCard {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+}
+
+.metricCard strong {
+  font-size: 1.9rem;
+  line-height: 0.94;
+}
+
+.heroTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.heroEditorialStrip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.heroEditorialCard {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(31, 41, 35, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 248, 239, 0.62)),
+    linear-gradient(135deg, color-mix(in srgb, var(--shop-accent) 10%, transparent), transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.heroEditorialCard span {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--shop-accent) 84%, #2d2a22);
+}
+
+.heroEditorialCard strong {
+  font-size: 1.24rem;
+  line-height: 1.02;
+}
+
+.heroEditorialCard p {
+  margin: 0;
+  color: rgba(26, 36, 31, 0.64);
+  line-height: 1.58;
+}
+
+.motionTicker {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 41, 35, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.68), rgba(255, 248, 239, 0.5)),
+    linear-gradient(90deg, color-mix(in srgb, var(--shop-accent) 8%, transparent), transparent);
+}
+
+.motionTicker::before,
+.motionTicker::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 72px;
+  z-index: 1;
+}
+
+.motionTicker::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(250, 245, 237, 1), rgba(250, 245, 237, 0));
+}
+
+.motionTicker::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(250, 245, 237, 1), rgba(250, 245, 237, 0));
+}
+
+.motionTickerTrack {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: max-content;
+  padding: 13px 0;
+  animation: tickerMove 26s linear infinite;
+}
+
+.motionTicker:hover .motionTickerTrack {
+  animation-play-state: paused;
+}
+
+.motionTickerItem {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  padding-left: 18px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(26, 36, 31, 0.62);
+}
+
+.motionTickerItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--shop-accent) 74%, white);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--shop-accent) 18%, transparent);
+}
+
+.heroTags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 41, 35, 0.08);
+  background: rgba(255, 255, 255, 0.64);
+}
+
+.heroStage {
+  display: grid;
+  gap: 16px;
+  align-content: center;
+}
+
+.sceneCard,
+.miniProductCard,
+.collectionScene,
+.featuredProductVisual,
+.productThumbButton,
+.fulfillmentImageFrame,
+.moodCard,
+.benefitCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 24px 48px rgba(74, 56, 38, 0.14);
+  transform:
+    perspective(1200px)
+    translate3d(var(--panel-x), var(--panel-y), 0)
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y));
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.sceneCard:hover,
+.miniProductCard:hover,
+.collectionScene:hover,
+.featuredProductVisual:hover,
+.productThumbButton:hover,
+.fulfillmentImageFrame:hover,
+.moodCard:hover,
+.benefitCard:hover {
+  box-shadow: 0 28px 56px rgba(74, 56, 38, 0.18);
+}
+
+.sceneCard::before,
+.miniProductCard::before,
+.collectionScene::before,
+.featuredProductVisual::before,
+.productThumbButton::before,
+.fulfillmentImageFrame::before,
+.moodCard::before,
+.benefitCard::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.sceneCard::after,
+.miniProductCard::after,
+.collectionScene::after,
+.featuredProductVisual::after,
+.productThumbButton::after,
+.fulfillmentImageFrame::after,
+.moodCard::after,
+.benefitCard::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(120deg, transparent 34%, rgba(255, 255, 255, 0.22) 48%, transparent 62%);
+  transform: translateX(-120%);
+  transition: transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sceneCard:hover::after,
+.miniProductCard:hover::after,
+.collectionScene:hover::after,
+.featuredProductVisual:hover::after,
+.productThumbButton:hover::after,
+.fulfillmentImageFrame:hover::after,
+.moodCard:hover::after,
+.benefitCard:hover::after {
+  transform: translateX(120%);
+}
+
+.sceneImage,
+.miniProductImage,
+.collectionSceneImage,
+.featuredProductImage,
+.productThumbImage,
+.fulfillmentImage,
+.moodImage,
+.benefitImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.04) translate3d(var(--bg-x), var(--bg-y), 0);
+  transition: transform 260ms ease-out;
+}
+
+.sceneShade,
+.miniProductShade,
+.collectionSceneShade,
+.featuredProductShade,
+.productThumbShade,
+.fulfillmentShade,
+.moodShade,
+.benefitShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, transparent 16%, rgba(255, 255, 255, 0.18) 44%, transparent 74%),
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(18, 22, 18, 0.08), rgba(18, 22, 18, 0.68));
+}
+
+.sceneCard {
+  min-height: 440px;
+}
+
+.sceneCopy,
+.collectionSceneCopy,
+.featuredProductCaption,
+.fulfillmentCaption,
+.moodCopy,
+.miniProductCopy,
+.benefitMeta {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1;
+  display: grid;
+  gap: 8px;
+}
+
+.sceneCopy strong {
+  max-width: 12ch;
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  line-height: 0.95;
+  color: #fffdf8;
+}
+
+.sceneCopy span,
+.collectionSceneCopy span,
+.featuredProductCaption span,
+.fulfillmentCaption span,
+.moodCopy span,
+.miniProductCopy span {
+  color: rgba(255, 247, 238, 0.74);
+}
+
+.sceneCopy p,
+.collectionSceneCopy p,
+.miniProductCopy p,
+.moodCopy p {
+  color: rgba(255, 250, 243, 0.82);
+}
+
+.heroMiniGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.miniProductCard {
+  min-height: 184px;
+  padding: 0;
+  text-align: left;
+  background: transparent;
+}
+
+.miniProductCardActive {
+  border-color: color-mix(in srgb, var(--shop-accent) 60%, white);
+}
+
+.miniProductCopy strong {
+  font-size: 1.2rem;
+  color: #fffdf8;
+}
+
+.focusCard {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.focusHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.focusHeader h2 {
+  margin: 6px 0 0;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  line-height: 0.96;
+}
+
+.focusMeta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.focusMeta div,
+.specCard,
+.signalCard,
+.bagHighlightCard,
+.totalCard {
+  display: grid;
+  gap: 8px;
+}
+
+.pricePill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--shop-deep);
+  color: #fff;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.focusFooter {
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(31, 41, 35, 0.08);
+}
+
+.focusStatus {
+  display: grid;
+  gap: 6px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.sectionCopy {
+  display: grid;
+  gap: 10px;
+  max-width: 780px;
+}
+
+.sectionCopy h2 {
+  margin: 0;
+  font-size: clamp(2.4rem, 4.6vw, 4.2rem);
+  line-height: 0.92;
+}
+
+.searchField {
+  display: grid;
+  gap: 10px;
+  width: min(360px, 100%);
+}
+
+.searchField span {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26, 36, 31, 0.62);
+}
+
+.searchField input {
+  min-height: 50px;
+  padding: 0 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(31, 41, 35, 0.1);
+  background: rgba(255, 255, 255, 0.72);
+  color: #1a241f;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.collectionSceneGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.collectionScene {
+  min-height: 320px;
+  padding: 0;
+  text-align: left;
+  background: transparent;
+}
+
+.collectionScene:nth-child(1),
+.collectionScene:nth-child(2) {
+  grid-column: span 3;
+}
+
+.collectionScene:nth-child(1),
+.collectionScene:nth-child(4) {
+  min-height: 420px;
+}
+
+.collectionScene:nth-child(3) {
+  grid-column: span 2;
+}
+
+.collectionScene:nth-child(4) {
+  grid-column: span 4;
+}
+
+.collectionScene:nth-child(2) {
+  transform:
+    perspective(1200px)
+    translate3d(var(--panel-x), calc(var(--panel-y) + 8px), 0)
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y));
+}
+
+.collectionScene:nth-child(3) {
+  transform:
+    perspective(1200px)
+    translate3d(var(--panel-x), calc(var(--panel-y) - 6px), 0)
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y));
+}
+
+.collectionSceneActive {
+  border-color: color-mix(in srgb, var(--shop-accent) 54%, white);
+}
+
+.collectionSceneActive::before {
+  border-color: color-mix(in srgb, var(--shop-accent) 46%, white);
+}
+
+.collectionSceneActive .collectionSceneCopy strong {
+  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.collectionSceneMeta {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.collectionSceneMeta small {
+  color: rgba(255, 248, 240, 0.84);
+}
+
+.collectionSceneCopy strong {
+  max-width: 10ch;
+  font-size: 2rem;
+  color: #fffdf8;
+}
+
+.signalStrip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.signalCard,
+.collectionSummary,
+.bagSummaryCard,
+.bagHighlightCard,
+.totalCard,
+.closingStatement {
+  padding: 20px;
+}
+
+.signalCard strong,
+.collectionSummary strong,
+.bagSummaryCard strong,
+.bagHighlightCard strong,
+.totalCard strong,
+.closingStatement strong {
+  font-size: 1.34rem;
+  line-height: 1.02;
+}
+
+.productsLayout,
+.bagLayout {
+  display: grid;
+  gap: 18px;
+}
+
+.productsLayout {
+  grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.98fr);
+  align-items: start;
+}
+
+.collectionSummary,
+.bagSummaryCard {
+  max-width: 360px;
+}
+
+.featuredProduct,
+.bagPanel,
+.fulfillmentPanel {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+}
+
+.featuredProduct {
+  grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+  align-items: stretch;
+}
+
+.featuredProductVisual {
+  min-height: 560px;
+}
+
+.featuredProductCaption strong,
+.fulfillmentCaption strong,
+.moodCopy strong {
+  max-width: 16ch;
+  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  line-height: 0.96;
+  color: #fffdf8;
+}
+
+.featuredProductBody {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.featuredProductBody h3,
+.bagHeader h3,
+.fulfillmentCopy h3 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 0.94;
+}
+
+.specGrid,
+.bagHeroStrip,
+.stepGrid,
+.moodboardGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.specGrid,
+.bagHeroStrip,
+.stepGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.specCard {
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(31, 41, 35, 0.08);
+  background: rgba(255, 255, 255, 0.64);
+}
+
+.specCard strong,
+.productCardHead strong,
+.bagItemMeta strong {
+  font-size: 1.2rem;
+  line-height: 1.02;
+}
+
+.productRail {
+  display: grid;
+  gap: 14px;
+}
+
+.productCard {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 18px;
+  padding: 16px;
+  border-radius: 28px;
+  border: 1px solid rgba(31, 41, 35, 0.08);
+  background: rgba(255, 251, 245, 0.78);
+  box-shadow: 0 20px 42px rgba(88, 67, 46, 0.08);
+}
+
+.productCardActive {
+  border-color: color-mix(in srgb, var(--shop-accent) 42%, white);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.9), rgba(252, 247, 239, 0.78)),
+    linear-gradient(135deg, color-mix(in srgb, var(--shop-accent) 10%, transparent), transparent 72%);
+  box-shadow: 0 22px 46px rgba(88, 67, 46, 0.12);
+}
+
+.productThumbButton {
+  min-height: 100%;
+  padding: 0;
+  background: transparent;
+}
+
+.productCardBody {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.productCardHead,
+.bagHeader,
+.bagItemMeta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.productCardHead h3 {
+  margin: 6px 0 0;
+  font-size: 1.5rem;
+  line-height: 0.98;
+}
+
+.productCardMeta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.productCardMeta span,
+.bagItemMeta p {
+  color: rgba(26, 36, 31, 0.58);
+}
+
+.bagPanel {
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--shop-soft) 56%, transparent), transparent 30%),
+    rgba(255, 251, 245, 0.78);
+}
+
+.bagList {
+  display: grid;
+  gap: 12px;
+  max-height: 420px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.bagList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.bagList::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--shop-accent) 22%, transparent);
+}
+
+.bagItem {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(31, 41, 35, 0.08);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.bagItemMeta span {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.quantityControls {
+  justify-content: flex-start;
+}
+
+.quantityPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--shop-soft) 94%, white);
+  color: var(--shop-deep);
+}
+
+.totalsStrip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.fulfillmentPanel {
+  align-content: start;
+  background:
+    linear-gradient(155deg, color-mix(in srgb, var(--shop-deep) 90%, white), color-mix(in srgb, var(--shop-accent) 70%, #ecdfcf));
+  color: #fff;
+}
+
+.fulfillmentImageFrame {
+  min-height: 320px;
+}
+
+.fulfillmentShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(18, 22, 18, 0.02), rgba(18, 22, 18, 0.68)),
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.16), transparent 36%);
+}
+
+.fulfillmentCopy p,
+.stepCard p,
+.fulfillmentCaption span {
+  color: rgba(255, 251, 244, 0.78);
+}
+
+.stepCard {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.stepCard strong {
+  font-size: 1.18rem;
+  line-height: 1.02;
+}
+
+.checkoutActions .secondaryCta {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.closingLead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+  gap: 18px;
+  align-items: end;
+}
+
+.benefitGallery {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.benefitCard {
+  min-height: 300px;
+}
+
+.benefitCard:nth-child(1) {
+  grid-column: span 4;
+}
+
+.benefitCard:nth-child(2) {
+  grid-column: span 2;
+}
+
+.benefitCard:nth-child(3) {
+  grid-column: span 6;
+  min-height: 340px;
+}
+
+.benefitMeta strong {
+  max-width: 12ch;
+  font-size: clamp(1.5rem, 2.2vw, 2.2rem);
+  line-height: 0.96;
+  color: #fffdf8;
+}
+
+.benefitMeta p,
+.benefitMeta small {
+  margin: 0;
+  color: rgba(255, 250, 243, 0.82);
+}
+
+.benefitMeta small {
+  color: rgba(255, 247, 238, 0.66);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.closingStatement {
+  display: grid;
+  gap: 10px;
+}
+
+.moodboardGrid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.moodCard {
+  min-height: 320px;
+}
+
+.moodCard:nth-child(1),
+.moodCard:nth-child(4) {
+  grid-column: span 4;
+  min-height: 380px;
+}
+
+.moodCard:nth-child(2),
+.moodCard:nth-child(3) {
+  grid-column: span 2;
+}
+
+.moodCopy p {
+  max-width: 24ch;
+}
+
+.emptyState {
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px dashed rgba(31, 41, 35, 0.16);
+  background: rgba(255, 255, 255, 0.62);
+  color: rgba(26, 36, 31, 0.68);
+}
+
+@keyframes sceneFlash {
+  0% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+
+  22% {
+    opacity: 0.88;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroDrift {
+  0% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(1.1) translate3d(-1.2%, 1.6%, 0);
+  }
+
+  100% {
+    transform: scale(1.08) translate3d(1.4%, -1.2%, 0);
+  }
+}
+
+@keyframes heroDriftReverse {
+  0% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(1.1) translate3d(1.4%, -1.4%, 0);
+  }
+
+  100% {
+    transform: scale(1.06) translate3d(-1.2%, 1.2%, 0);
+  }
+}
+
+@keyframes tickerMove {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (max-width: 1180px) {
+  .topbar,
+  .heroInner,
+  .productsLayout,
+  .featuredProduct,
+  .bagLayout,
+  .closingLead {
+    grid-template-columns: 1fr;
+  }
+
+  .navLinks,
+  .topbarActions {
+    justify-content: flex-start;
+  }
+
+  .collectionSceneGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .collectionScene:nth-child(1),
+  .collectionScene:nth-child(2),
+  .collectionScene:nth-child(3),
+  .collectionScene:nth-child(4),
+  .benefitCard:nth-child(1),
+  .benefitCard:nth-child(2),
+  .benefitCard:nth-child(3),
+  .moodCard:nth-child(1),
+  .moodCard:nth-child(2),
+  .moodCard:nth-child(3),
+  .moodCard:nth-child(4) {
+    grid-column: auto;
+  }
+
+  .heroInner {
+    align-items: start;
+  }
+
+  .collectionSummary,
+  .bagSummaryCard {
+    max-width: none;
+  }
+
+  .benefitGallery,
+  .moodboardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .metricRail,
+  .heroEditorialStrip,
+  .heroMiniGrid,
+  .signalStrip,
+  .specGrid,
+  .bagHeroStrip,
+  .stepGrid,
+  .benefitGallery,
+  .moodboardGrid,
+  .totalsStrip {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeader,
+  .focusHeader,
+  .focusFooter,
+  .productCardHead,
+  .bagHeader,
+  .bagItemMeta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .productCard {
+    grid-template-columns: 1fr;
+  }
+
+  .productThumbButton {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 760px) {
+  .page {
+    cursor: auto;
+  }
+
+  .scrollMeter,
+  .cursorAura,
+  .cursorDot {
+    display: none;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    left: auto;
+    right: auto;
+    transform: none;
+    width: min(100% - 20px, 1320px);
+    margin: 0 auto;
+    padding: 14px;
+    border-radius: 0 0 24px 24px;
+  }
+
+  .topbarHidden {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .heroInner,
+  .sectionInner {
+    width: min(100% - 20px, 1320px);
+  }
+
+  .heroInner {
+    min-height: auto;
+    padding-top: 36px;
+    padding-bottom: 40px;
+  }
+
+  .sectionInner {
+    padding-top: 88px;
+    padding-bottom: 52px;
+  }
+
+  .heroTitle {
+    max-width: none;
+    font-size: clamp(2.7rem, 12vw, 4rem);
+    line-height: 0.92;
+    text-wrap: balance;
+  }
+
+  .collectionSceneGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sceneCard {
+    min-height: 360px;
+  }
+
+  .featuredProductVisual,
+  .fulfillmentImageFrame,
+  .moodCard {
+    min-height: 280px;
+  }
+
+  .backLink,
+  .workspaceLink,
+  .nextLink,
+  .primaryCta,
+  .secondaryCta,
+  .primaryButton,
+  .secondaryButton,
+  .qtyButton {
+    width: 100%;
+  }
+
+  .topbarActions,
+  .heroActions,
+  .productActions,
+  .featuredProductActions,
+  .quantityControls,
+  .checkoutActions,
+  .closingActions {
+    width: 100%;
+  }
+
+  .topbarActions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .nextLink {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (pointer: coarse) {
+  .page {
+    cursor: auto;
+  }
+
+  .scrollMeter,
+  .cursorAura,
+  .cursorDot {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transitionVeilActive,
+  .heroBackdrop .backdropImage,
+  .heroBackdropAccent .backdropImage,
+  .sectionBackdrop .backdropImage,
+  .motionTickerTrack {
+    animation: none;
+  }
+
+  .heroCopy,
+  .heroStage,
+  .heroEditorialStrip,
+  .metricRail,
+  .sectionHeader,
+  .collectionSceneGrid,
+  .signalStrip,
+  .productsLayout,
+  .bagHeroStrip,
+  .bagLayout,
+  .closingLead,
+  .benefitGallery,
+  .moodboardGrid,
+  .collectionScene,
+  .signalCard,
+  .productCard,
+  .bagHighlightCard,
+  .stepCard,
+  .moodCard,
+  .benefitCard,
+  .focusCard,
+  .collectionSummary,
+  .featuredProduct,
+  .bagSummaryCard,
+  .bagPanel,
+  .fulfillmentPanel,
+  .closingStatement {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
