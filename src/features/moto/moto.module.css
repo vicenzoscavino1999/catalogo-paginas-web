@@ -1467,7 +1467,17 @@
 
 @media (max-width: 760px) {
   .topbar {
-    padding: 14px 18px;
+    padding: 10px 12px 12px;
+    gap: 10px;
+  }
+
+  .brandTag {
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+  }
+
+  .brandLogo {
+    font-size: 1.52rem;
   }
 
   .navLinks {
@@ -1476,6 +1486,13 @@
 
   .topbarActions {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .topbarActions > :nth-child(3) {
+    grid-column: 1 / -1;
   }
 
   .backLink,
@@ -1485,6 +1502,19 @@
   .secondaryCta {
     width: 100%;
     justify-content: center;
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 0.76rem;
+  }
+
+  .comparePill {
+    letter-spacing: 0.1em;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    align-content: start;
   }
 
   .heroIntro,
@@ -1497,21 +1527,40 @@
   .financeLead,
   .financeControls,
   .ownershipRail {
-    padding: 24px 18px;
+    padding: 18px 14px;
+  }
+
+  .heroIntro {
+    padding-top: 24px;
+    padding-bottom: 18px;
   }
 
   .heroIntro h1 {
-    font-size: clamp(2.6rem, 14vw, 4rem);
+    max-width: 10ch;
+    font-size: clamp(2.2rem, 11vw, 3.35rem);
+    line-height: 0.92;
+  }
+
+  .lead {
+    margin-top: 16px;
+    line-height: 1.65;
+  }
+
+  .heroMeta {
+    gap: 12px;
+    margin-top: 18px;
+    padding-top: 16px;
   }
 
   .heroHud {
     width: auto;
-    margin: 20px 18px 0;
+    margin: 0 14px;
   }
 
   .finder {
-    margin: 0 18px 18px;
-    padding: 20px 18px;
+    margin: 0 14px 16px;
+    margin-top: 0;
+    padding: 16px 14px;
     width: auto;
   }
 
@@ -1521,18 +1570,60 @@
     display: grid;
   }
 
+  .finderIntro {
+    gap: 12px;
+  }
+
+  .finderIntro h2 {
+    max-width: none;
+    font-size: clamp(1.45rem, 7.6vw, 2rem);
+  }
+
   .finderFields {
     grid-template-columns: 1fr;
+  }
+
+  .finderField input {
+    min-height: 46px;
+    padding: 0 14px;
   }
 
   .lineupStage,
   .editorialHero,
   .editorialShot {
-    min-height: 280px;
+    min-height: 220px;
+  }
+
+  .lineupStage {
+    min-height: 320px;
+    padding: 16px;
+  }
+
+  .lineupStage img {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+  }
+
+  .stageCaption {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .stageCaption h2 {
+    font-size: clamp(1.65rem, 8.4vw, 2.5rem);
+  }
+
+  .financeLead,
+  .financeControls,
+  .ownershipRail,
+  .editorialSection {
+    padding: 18px 14px;
   }
 
   .communitySection {
-    padding: 40px 18px;
+    padding: 28px 14px;
   }
 
   .communityGrid {

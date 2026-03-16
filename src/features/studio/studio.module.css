@@ -1399,35 +1399,72 @@
   }
 
   .topbar {
-    top: 12px;
-    left: 10px;
-    right: 10px;
-    padding: 14px;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 12px 12px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    border-radius: 0 0 24px 24px;
+  }
+
+  .brandBlock {
+    gap: 10px;
+  }
+
+  .brandMark {
+    width: 42px;
+    height: 42px;
+    border-radius: 18px;
+  }
+
+  .brandMarkRing::before {
+    inset: 6px;
+    border-radius: 12px;
+  }
+
+  .brandLabel {
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+  }
+
+  .brandName {
+    font-size: 1.52rem;
   }
 
   .heroInner,
   .sectionInner {
-    width: min(100% - 20px, 1260px);
+    width: min(100% - 16px, 1260px);
+    min-height: auto;
   }
 
   .heroInner {
-    padding-top: 120px;
-    padding-bottom: 38px;
+    padding-top: 182px;
+    padding-bottom: 32px;
   }
 
   .sectionInner {
-    padding-top: 112px;
-    padding-bottom: 56px;
+    padding-top: 102px;
+    padding-bottom: 44px;
   }
 
   .heroTitle {
-    font-size: clamp(3.2rem, 15vw, 5rem);
+    max-width: 9ch;
+    font-size: clamp(2.35rem, 11.4vw, 3.45rem);
+    line-height: 0.84;
   }
 
   .heroActions,
   .topbarActions,
   .closingActions {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .topbarActions > :nth-child(3) {
+    grid-column: 1 / -1;
   }
 
   .backLink,
@@ -1436,6 +1473,33 @@
   .primaryCta,
   .secondaryCta {
     width: 100%;
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 0.78rem;
+  }
+
+  .heroActions,
+  .closingActions {
+    grid-template-columns: 1fr;
+  }
+
+  .navLinks {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    gap: 12px;
+  }
+
+  .navLinks a {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+  }
+
+  .navLinks::-webkit-scrollbar {
+    display: none;
   }
 
   .heroRibbon {
@@ -1444,15 +1508,18 @@
 
   .heroPreviewRail {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .disciplineRow,
   .caseRow {
-    grid-template-columns: auto 68px 1fr;
+    grid-template-columns: auto 56px 1fr;
+    gap: 10px;
+    align-items: start;
   }
 
   .listThumb {
-    width: 68px;
+    width: 56px;
   }
 }
 

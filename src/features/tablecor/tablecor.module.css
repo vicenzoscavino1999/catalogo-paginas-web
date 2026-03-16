@@ -4439,7 +4439,27 @@
 
 @media (max-width: 760px) {
   .topbar {
-    padding: 12px 18px 18px;
+    padding: 10px 12px 12px;
+    gap: 10px;
+  }
+
+  .brandTag {
+    font-size: 0.64rem;
+    letter-spacing: 0.18em;
+  }
+
+  .brandName {
+    font-size: clamp(2rem, 8.4vw, 2.4rem);
+  }
+
+  .brandStatus {
+    gap: 6px;
+  }
+
+  .brandStatus span,
+  .brandStatus small {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
   }
 
   .machineHud {
@@ -4459,8 +4479,8 @@
   }
 
   .topbarProgress {
-    left: 18px;
-    right: 18px;
+    left: 16px;
+    right: 16px;
   }
 
   .navLinks {
@@ -4469,6 +4489,13 @@
 
   .topbarActions {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .topbarActions > :nth-child(3) {
+    grid-column: 1 / -1;
   }
 
   .backLink,
@@ -4477,6 +4504,9 @@
   .primaryCta,
   .secondaryCta {
     width: 100%;
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 0.78rem;
   }
 
   .hero,
@@ -4485,7 +4515,7 @@
   .processSection,
   .machineSection,
   .sampleSection {
-    padding: 24px 18px 28px;
+    padding: 18px 14px 20px;
   }
 
   .heroIntro h1,
@@ -4493,8 +4523,9 @@
   .programHeader h3,
   .machineMeta h3,
   .sampleLead h2 {
-    font-size: clamp(3rem, 14vw, 4.8rem);
+    font-size: clamp(2rem, 9.6vw, 3rem);
     max-width: none;
+    line-height: 0.92;
   }
 
   .heroIntro {
@@ -4502,7 +4533,7 @@
   }
 
   .heroIntro h1 {
-    font-size: clamp(2.6rem, 12vw, 4rem);
+    font-size: clamp(2.35rem, 11.6vw, 3.6rem);
     line-height: 0.94;
     overflow-wrap: anywhere;
   }
@@ -4532,7 +4563,7 @@
   }
 
   .sceneCanvas {
-    min-height: 520px;
+    min-height: 400px;
   }
 
   .sceneWallPanel {
@@ -4543,7 +4574,7 @@
     display: grid;
     left: 18px;
     right: 18px;
-    bottom: 108px;
+    bottom: 92px;
     grid-template-columns: 1fr;
   }
 
@@ -4566,7 +4597,7 @@
   .sceneEditorialTag {
     top: auto;
     right: 18px;
-    bottom: 248px;
+    bottom: 208px;
     width: min(220px, calc(100% - 36px));
   }
 
@@ -4582,17 +4613,17 @@
   }
 
   .surfaceCardButton {
-    grid-template-columns: 88px 1fr;
+    grid-template-columns: 76px 1fr;
   }
 
   .surfaceReveal {
-    padding-left: 102px;
+    padding-left: 90px;
   }
 
   .programCueRail {
-    left: 16px;
-    right: 16px;
-    top: 16px;
+    left: 14px;
+    right: 14px;
+    top: 14px;
   }
 
   .processRail,
@@ -4602,6 +4633,22 @@
 
   .serviceRail {
     grid-template-columns: 1fr;
+  }
+
+  .compareTray,
+  .sampleResponseCard,
+  .sampleManifestCard,
+  .samplePreviewCard {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .sampleBuilder {
+    gap: 14px;
+  }
+
+  .samplePreviewMedia img {
+    height: 200px;
   }
 
   .machineChip,

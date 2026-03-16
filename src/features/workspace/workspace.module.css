@@ -220,4 +220,44 @@
   .editorLayout {
     grid-template-columns: 1fr;
   }
+
+  .jsonArea {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero h1 {
+    font-size: clamp(2.1rem, 11vw, 3.2rem);
+    line-height: 0.94;
+  }
+
+  .heroActions,
+  .panelActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .heroActions > *,
+  .panelActions > * {
+    width: 100%;
+  }
+
+  .tabRail {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .metaPanel,
+  .jsonPanel {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .jsonArea {
+    min-height: 320px;
+    padding: 16px;
+    font-size: 0.88rem;
+  }
 }

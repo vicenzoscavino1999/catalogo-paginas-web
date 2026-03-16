@@ -1118,8 +1118,9 @@
 
 @media (max-width: 760px) {
   .topbar {
-    padding: 16px 18px;
-    gap: 18px;
+    padding: 12px 14px 16px;
+    gap: 12px;
+    grid-template-columns: 1fr;
   }
 
   .navLinks {
@@ -1128,6 +1129,9 @@
 
   .topbarActions {
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .backLink,
@@ -1142,26 +1146,35 @@
   .menuSection,
   .sceneSection,
   .reservationSection {
-    padding: 24px 18px 26px;
+    padding: 20px 16px 24px;
   }
 
   .heroIntro::after {
     display: none;
   }
 
+  .heroIntro h1,
+  .menuLead h2,
+  .sceneLead h2,
+  .reservationLead h2,
+  .menuNarrative h2 {
+    font-size: clamp(2.45rem, 11.5vw, 3.3rem);
+    line-height: 0.92;
+  }
+
   .heroVisual,
   .sceneHero,
   .sceneSide {
-    min-height: 340px;
+    min-height: 280px;
   }
 
   .heroVisual {
-    border-radius: 28px;
+    border-radius: 24px;
   }
 
   .heroVisual::before {
-    inset: 12px;
-    border-radius: 22px;
+    inset: 10px;
+    border-radius: 20px;
   }
 
   .heroPanel {
@@ -1185,6 +1198,6 @@
   .selectorBlock,
   .reservationSummary,
   .reservationPerks article {
-    border-radius: 24px;
+    border-radius: 20px;
   }
 }
