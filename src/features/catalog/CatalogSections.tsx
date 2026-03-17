@@ -1,4 +1,4 @@
-import type { CSSProperties, PointerEventHandler } from "react";
+import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import type { CatalogScene } from "@/features/catalog/catalog.config";
 import type {
@@ -11,11 +11,6 @@ import { getSiteScene } from "@/features/catalog/catalog.config";
 import { createCompositeKey } from "@/shared/utils/compositeKey";
 import styles from "@/features/catalog/catalog.module.css";
 
-interface MotionHandlers {
-  onPointerLeave: PointerEventHandler<HTMLElement>;
-  onPointerMove: PointerEventHandler<HTMLElement>;
-}
-
 interface CatalogTopbarProps {
   activeSection: string;
   activeSite: SitePreview;
@@ -23,22 +18,20 @@ interface CatalogTopbarProps {
   isTopbarHidden: boolean;
 }
 
-interface CatalogHeroSectionProps extends MotionHandlers {
+interface CatalogHeroSectionProps {
   activeDossier: CatalogSignal[];
   activeScene: CatalogScene;
   activeSite: SitePreview;
   catalog: CatalogContent;
   heroManifesto: Array<{ copy: string; index: string; title: string }>;
-  isSceneTransitioning: boolean;
   marqueeItems: string[];
   previewSites: SitePreview[];
   sidePreviewScene: CatalogScene;
   sidePreviewSite: SitePreview;
-  transitionImage: string;
   activateSite: (siteKey: string) => void;
 }
 
-interface CatalogListSectionProps extends MotionHandlers {
+interface CatalogListSectionProps {
   activeSite: SitePreview;
   categories: string[];
   category: string;
@@ -49,7 +42,7 @@ interface CatalogListSectionProps extends MotionHandlers {
   onSelectCategory: (category: string) => void;
 }
 
-interface CatalogSystemSectionProps extends MotionHandlers {
+interface CatalogSystemSectionProps {
   catalog: CatalogContent;
   featuredSite: SitePreview;
   systemShowcase: CatalogShowcaseSite[];
@@ -103,14 +96,10 @@ export function CatalogHeroSection({
   activateSite,
   catalog,
   heroManifesto,
-  isSceneTransitioning,
   marqueeItems,
-  onPointerLeave,
-  onPointerMove,
   previewSites,
   sidePreviewScene,
   sidePreviewSite,
-  transitionImage,
 }: CatalogHeroSectionProps) {
   return (
     <section
@@ -123,10 +112,6 @@ export function CatalogHeroSection({
         <img alt="" className={styles.backdropImage} decoding="async" fetchPriority="high" src={activeScene.image} />
       </div>
       <div className={styles.heroAura} />
-      <div
-        className={`${styles.heroTransition}${isSceneTransitioning ? ` ${styles.heroTransitionActive}` : ""}`}
-        style={{ backgroundImage: `url(${transitionImage})` }}
-      />
       <div className={styles.heroViewport}>
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
@@ -167,11 +152,7 @@ export function CatalogHeroSection({
           </div>
           <div className={styles.heroStage}>
             <div className={styles.stageRow}>
-              <article
-                className={styles.spotlightCard}
-                onPointerLeave={onPointerLeave}
-                onPointerMove={onPointerMove}
-              >
+              <article className={styles.spotlightCard}>
                 <img alt={activeScene.alt} className={styles.spotlightImage} decoding="async" fetchPriority="high" src={activeScene.image} />
                 <div className={styles.spotlightShade} />
                 <div className={styles.spotlightMeta}>
@@ -193,11 +174,7 @@ export function CatalogHeroSection({
                 </div>
               </article>
               <div className={styles.stageSidecar}>
-                <article
-                  className={styles.dossierPanel}
-                  onPointerLeave={onPointerLeave}
-                  onPointerMove={onPointerMove}
-                >
+                <article className={styles.dossierPanel}>
                   <div className={styles.dossierHead}>
                     <span>Dossier activo</span>
                     <strong>{activeSite.title}</strong>
@@ -220,10 +197,15 @@ export function CatalogHeroSection({
                   type="button"
                   className={styles.sidePreviewCard}
                   onClick={() => activateSite(sidePreviewSite.key)}
-                  onPointerLeave={onPointerLeave}
-                  onPointerMove={onPointerMove}
                 >
-                  <img alt={sidePreviewScene.alt} className={styles.sidePreviewImage} decoding="async" fetchPriority="high" src={sidePreviewScene.image} />
+                  <img
+                    alt={sidePreviewScene.alt}
+                    className={styles.sidePreviewImage}
+                    decoding="async"
+                    fetchPriority="auto"
+                    loading="lazy"
+                    src={sidePreviewScene.image}
+                  />
                   <div className={styles.sidePreviewShade} />
                   <div className={styles.sidePreviewCopy}>
                     <span>Siguiente foco</span>
@@ -250,15 +232,13 @@ export function CatalogHeroSection({
                         ["--item-index" as string]: index,
                       } as CSSProperties
                     }
-                    onPointerLeave={onPointerLeave}
-                    onPointerMove={onPointerMove}
                   >
                     <img
                       alt={scene.alt}
                       className={styles.previewImage}
                       decoding="async"
-                      fetchPriority={index < 3 ? "high" : "auto"}
-                      loading={index < 3 ? "eager" : "lazy"}
+                      fetchPriority="auto"
+                      loading="lazy"
                       src={scene.image}
                     />
                     <div className={styles.previewShade} />
@@ -284,8 +264,6 @@ export function CatalogListSection({
   activateSite,
   categories,
   category,
-  onPointerLeave,
-  onPointerMove,
   onQueryChange,
   onSelectCategory,
   query,
@@ -358,16 +336,14 @@ export function CatalogListSection({
                     } as CSSProperties
                   }
                   onFocusCapture={() => activateSite(site.key)}
-                  onPointerLeave={onPointerLeave}
-                  onPointerMove={onPointerMove}
                 >
                   <div className={styles.cardMedia}>
                     <img
                       alt={scene.alt}
                       className={styles.cardImage}
                       decoding="async"
-                      fetchPriority={index < 3 ? "high" : "auto"}
-                      loading={index < 3 ? "eager" : "lazy"}
+                      fetchPriority="auto"
+                      loading="lazy"
                       src={scene.image}
                     />
                     <div className={styles.cardShade} />
@@ -419,8 +395,6 @@ export function CatalogListSection({
 export function CatalogSystemSection({
   catalog,
   featuredSite,
-  onPointerLeave,
-  onPointerMove,
   systemShowcase,
 }: CatalogSystemSectionProps) {
   return (
@@ -440,7 +414,7 @@ export function CatalogSystemSection({
               separadas, features por dominio y contenido editable desde un workspace local.
             </p>
           </div>
-          <article className={styles.notePanel} onPointerLeave={onPointerLeave} onPointerMove={onPointerMove}>
+          <article className={styles.notePanel}>
             <span>{catalog.noteTitle}</span>
             <strong>{catalog.noteCopy}</strong>
             <div className={styles.noteActions}>
@@ -459,8 +433,6 @@ export function CatalogSystemSection({
               className={styles.foundationCard}
               key={createCompositeKey("foundation", index, item.title)}
               style={{ ["--item-index" as string]: index } as CSSProperties}
-              onPointerLeave={onPointerLeave}
-              onPointerMove={onPointerMove}
             >
               <small>0{index + 1}</small>
               <strong>{item.title}</strong>
@@ -474,15 +446,13 @@ export function CatalogSystemSection({
               className={styles.systemShowcaseCard}
               key={site.key}
               style={{ ["--item-index" as string]: index } as CSSProperties}
-              onPointerLeave={onPointerLeave}
-              onPointerMove={onPointerMove}
             >
               <img
                 alt={site.scene.alt}
                 className={styles.systemShowcaseImage}
                 decoding="async"
-                fetchPriority={index === 0 ? "high" : "auto"}
-                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority="auto"
+                loading="lazy"
                 src={site.scene.image}
               />
               <div className={styles.systemShowcaseShade} />
@@ -500,8 +470,6 @@ export function CatalogSystemSection({
               className={styles.pillarCard}
               key={createCompositeKey("pillar", index, pillar.title)}
               style={{ ["--item-index" as string]: index } as CSSProperties}
-              onPointerLeave={onPointerLeave}
-              onPointerMove={onPointerMove}
             >
               <span>{pillar.title}</span>
               <p>{pillar.copy}</p>
