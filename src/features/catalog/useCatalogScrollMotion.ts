@@ -3,6 +3,8 @@ import { useLayoutEffect, useRef, type RefObject } from "react";
 interface CatalogScrollMotionOptions {
   pageRef: RefObject<HTMLElement | null>;
   sectionIds: readonly string[];
+  fallbackSection?: string;
+  onSectionChange?: (sectionId: string) => void;
 }
 
 function clamp(value: number, min: number, max: number) {
@@ -12,6 +14,8 @@ function clamp(value: number, min: number, max: number) {
 export function useCatalogScrollMotion({
   pageRef,
   sectionIds,
+  fallbackSection = "hero",
+  onSectionChange,
 }: CatalogScrollMotionOptions) {
   const frameRef = useRef<number | null>(null);
   const sectionIdsKey = sectionIds.join(",");
@@ -42,6 +46,7 @@ export function useCatalogScrollMotion({
     const easing = 0.36;
     const settleThreshold = 0.003;
     let isInitialized = false;
+    let activeSectionId = fallbackSection;
 
     if (sections.length === 0) {
       return;
@@ -80,6 +85,11 @@ export function useCatalogScrollMotion({
     const measureTargets = () => {
       const viewportHeight = Math.max(window.innerHeight || 0, 1);
       const focusLine = viewportHeight * 0.46;
+      const visTop = viewportHeight * 0.96;
+      const visBottom = viewportHeight * 0.04;
+      const visFocus = viewportHeight * 0.5;
+      let nextActiveId = fallbackSection;
+      let bestDistance = Number.POSITIVE_INFINITY;
 
       sectionState.forEach((state) => {
         const { section, sectionId } = state;
@@ -101,7 +111,35 @@ export function useCatalogScrollMotion({
           state.currentDepth = depth;
           applyMotionValues(section, sectionId, progress, focus, depth);
         }
+
+        if (onSectionChange) {
+          const isVisible = rect.top < visTop && rect.bottom > visBottom;
+          const nextVisState = isVisible ? "true" : "false";
+
+          if (section.dataset.visible !== nextVisState) {
+            section.dataset.visible = nextVisState;
+          }
+
+          if (isVisible) {
+            const dist =
+              visFocus < rect.top
+                ? rect.top - visFocus
+                : visFocus > rect.bottom
+                  ? visFocus - rect.bottom
+                  : 0;
+
+            if (dist < bestDistance) {
+              bestDistance = dist;
+              nextActiveId = sectionId;
+            }
+          }
+        }
       });
+
+      if (onSectionChange && nextActiveId !== activeSectionId) {
+        activeSectionId = nextActiveId;
+        onSectionChange(nextActiveId);
+      }
 
       if (!isInitialized) {
         isInitialized = true;
@@ -170,5 +208,5 @@ export function useCatalogScrollMotion({
       window.removeEventListener("scroll", requestSync);
       window.removeEventListener("resize", requestSync);
     };
-  }, [pageRef, sectionIds, sectionIdsKey]);
+  }, [fallbackSection, onSectionChange, pageRef, sectionIds, sectionIdsKey]);
 }

@@ -8,6 +8,7 @@ import type {
 import type { CatalogContent } from "@/shared/content/contentTypes";
 import type { SitePreview } from "@/shared/types/site";
 import { getSiteScene } from "@/features/catalog/catalog.config";
+import { createCompositeKey } from "@/shared/utils/compositeKey";
 import styles from "@/features/catalog/catalog.module.css";
 
 interface MotionHandlers {
@@ -56,10 +57,6 @@ interface CatalogSystemSectionProps extends MotionHandlers {
   systemShowcase: CatalogShowcaseSite[];
 }
 
-function createCompositeKey(...parts: Array<string | number>) {
-  return parts.join("::");
-}
-
 export function CatalogTopbar({
   activeSection,
   activeSite,
@@ -78,13 +75,13 @@ export function CatalogTopbar({
         <strong className={styles.brandName}>Catalogo Webs</strong>
       </Link>
       <nav className={styles.navLinks} aria-label="Secciones principales">
-        <a className={activeSection === "hero" ? styles.navLinkActive : ""} href="#hero">
+        <a className={activeSection === "hero" ? styles.navLinkActive : undefined} href="#hero">
           Inicio
         </a>
-        <a className={activeSection === "catalogo" ? styles.navLinkActive : ""} href="#catalogo">
+        <a className={activeSection === "catalogo" ? styles.navLinkActive : undefined} href="#catalogo">
           Demos
         </a>
-        <a className={activeSection === "sistema" ? styles.navLinkActive : ""} href="#sistema">
+        <a className={activeSection === "sistema" ? styles.navLinkActive : undefined} href="#sistema">
           Sistema
         </a>
       </nav>

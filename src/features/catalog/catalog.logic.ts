@@ -2,7 +2,7 @@ import { getSiteScene } from "@/features/catalog/catalog.config";
 import type { CatalogContent } from "@/shared/content/contentTypes";
 import type { SitePreview } from "@/shared/types/site";
 
-type CatalogCategory = string;
+export type CatalogCategory = string;
 
 export interface CatalogSignal {
   copy: string;

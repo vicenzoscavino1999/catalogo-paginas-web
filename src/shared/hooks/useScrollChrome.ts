@@ -6,6 +6,7 @@ interface ScrollChromeOptions {
   hideThreshold?: number;
   trackProgress?: boolean;
   progressTarget?: RefObject<HTMLElement | null>;
+  progressTextTarget?: RefObject<HTMLElement | null>;
   progressStateStep?: number;
 }
 
@@ -15,6 +16,7 @@ export function useScrollChrome({
   hideThreshold = 40,
   trackProgress = true,
   progressTarget,
+  progressTextTarget,
   progressStateStep = 0.001,
 }: ScrollChromeOptions = {}) {
   const frameRef = useRef<number | null>(null);
@@ -54,16 +56,24 @@ export function useScrollChrome({
           if (target) {
             target.style.setProperty("--scroll-progress", `${nextProgress}`);
           }
+
+          const textTarget = progressTextTarget?.current;
+
+          if (textTarget) {
+            textTarget.textContent = `${Math.round(nextProgress * 100)}%`;
+          }
         }
 
-        const shouldSyncProgressState =
-          Math.abs(nextProgress - renderedProgressRef.current) >= progressStateStep ||
-          nextProgress === 0 ||
-          nextProgress === 1;
+        if (!progressTextTarget) {
+          const shouldSyncProgressState =
+            Math.abs(nextProgress - renderedProgressRef.current) >= progressStateStep ||
+            nextProgress === 0 ||
+            nextProgress === 1;
 
-        if (shouldSyncProgressState) {
-          renderedProgressRef.current = nextProgress;
-          setScrollProgress(nextProgress);
+          if (shouldSyncProgressState) {
+            renderedProgressRef.current = nextProgress;
+            setScrollProgress(nextProgress);
+          }
         }
       }
 
@@ -145,6 +155,7 @@ export function useScrollChrome({
     hideThreshold,
     progressStateStep,
     progressTarget,
+    progressTextTarget,
     trackProgress,
   ]);
 

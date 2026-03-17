@@ -6,6 +6,7 @@ import type {
   StudioWorkflowStep,
 } from "@/shared/content/contentTypes";
 import type { MetricItem, SitePreview } from "@/shared/types/site";
+import { createCompositeKey } from "@/shared/utils/compositeKey";
 import {
   getCaseProfile,
   getDisciplineProfile,
@@ -83,10 +84,6 @@ interface StudioProcessSectionProps extends MotionHandlers {
   workflow: StudioWorkflowStep[];
   workflowSignals: Array<{ copy: string; label: string; value: string }>;
   onSelectWorkflow: (index: number) => void;
-}
-
-function createCompositeKey(...parts: Array<string | number>) {
-  return parts.join("::");
 }
 
 export function StudioTopbar({

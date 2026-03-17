@@ -1,5 +1,5 @@
-import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import {
   CatalogHeroSection,
   CatalogListSection,
@@ -13,6 +13,7 @@ import {
   surfaceMotionOptions,
 } from "@/features/catalog/catalog.config";
 import {
+  type CatalogCategory,
   createCatalogCategories,
   createCatalogDossier,
   createCatalogHeroSignals,
@@ -30,16 +31,14 @@ import { useMvpContent } from "@/shared/content/MvpContentContext";
 import { useDocumentTitle } from "@/shared/hooks/useDocumentTitle";
 import { usePointerGlow } from "@/shared/hooks/usePointerGlow";
 import { useScrollChrome } from "@/shared/hooks/useScrollChrome";
-import { useSectionVisibility } from "@/shared/hooks/useSectionVisibility";
-import { applySurfaceMotion, resetSurfaceMotion } from "@/shared/motion/surfaceMotion";
+import { createThrottledSurfaceMotion } from "@/shared/motion/surfaceMotion";
 import styles from "@/features/catalog/catalog.module.css";
-
-type CatalogCategory = string;
 
 export function CatalogPage() {
   const pageRef = useRef<HTMLElement | null>(null);
   const cursorAuraRef = useRef<HTMLDivElement | null>(null);
   const cursorDotRef = useRef<HTMLDivElement | null>(null);
+  const scrollMeterValueRef = useRef<HTMLSpanElement | null>(null);
   const activationLockUntilRef = useRef(0);
   const rotationPauseUntilRef = useRef(0);
   const { content, siteRegistry } = useMvpContent();
@@ -65,11 +64,11 @@ export function CatalogPage() {
     lerp: 0.22,
     auraRotateDeg: -12,
   });
-  const { isTopbarCompact, isTopbarHidden, scrollProgressPercent } = useScrollChrome({
+  const { isTopbarCompact, isTopbarHidden } = useScrollChrome({
     compactThreshold: 86,
     hideThreshold: 40,
     progressTarget: pageRef,
-    progressStateStep: 0.01,
+    progressTextTarget: scrollMeterValueRef,
   });
 
   const visibleSites = useMemo(
@@ -133,18 +132,15 @@ export function CatalogPage() {
     ["--sistema-depth" as string]: "0",
   } as CSSProperties;
 
-  useSectionVisibility({
-    pageRef,
-    onSectionChange: setActiveSection,
-    rootMargin: "0px 0px -12% 0px",
-    threshold: [0.06, 0.16, 0.28],
-    visibleBottomRatio: 0.04,
-    visibleTopRatio: 0.96,
-  });
+  const handleSectionChange = useCallback(
+    (sectionId: string) => setActiveSection(sectionId),
+    []
+  );
 
   useCatalogScrollMotion({
     pageRef,
     sectionIds: catalogSectionOrder,
+    onSectionChange: handleSectionChange,
   });
 
   useEffect(() => {
@@ -210,13 +206,18 @@ export function CatalogPage() {
     setActiveSiteKey(siteKey);
   }
 
-  function handleSurfaceMove(event: ReactPointerEvent<HTMLElement>) {
-    applySurfaceMotion(event, surfaceMotionOptions);
+  const surfaceMotionRef = useRef<ReturnType<typeof createThrottledSurfaceMotion> | null>(null);
+
+  if (!surfaceMotionRef.current) {
+    surfaceMotionRef.current = createThrottledSurfaceMotion(surfaceMotionOptions);
   }
 
-  function handleSurfaceLeave(event: ReactPointerEvent<HTMLElement>) {
-    resetSurfaceMotion(event, surfaceMotionOptions);
-  }
+  useEffect(() => {
+    return () => surfaceMotionRef.current?.dispose();
+  }, []);
+
+  const handleSurfaceMove = surfaceMotionRef.current.handleMove;
+  const handleSurfaceLeave = surfaceMotionRef.current.handleLeave;
 
   return (
     <main
@@ -246,7 +247,7 @@ export function CatalogPage() {
             </span>
           ))}
         </div>
-        <span className={styles.scrollMeterValue}>{scrollProgressPercent}%</span>
+        <span className={styles.scrollMeterValue} ref={scrollMeterValueRef}>0%</span>
         <span className={styles.scrollMeterLabel}>{activeSectionLabel}</span>
       </div>
 

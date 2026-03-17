@@ -3,11 +3,8 @@ import { startTransition, useCallback, useEffect, useMemo, useRef, useState } fr
 import { Link } from "react-router-dom";
 import { useMvpContent } from "@/shared/content/MvpContentContext";
 import { useDocumentTitle } from "@/shared/hooks/useDocumentTitle";
+import { createCompositeKey } from "@/shared/utils/compositeKey";
 import styles from "@/features/moto/moto.module.css";
-
-function createCompositeKey(...parts: Array<number | string>) {
-  return parts.join("::");
-}
 
 export function MotoPage() {
   const { content, getNextSite, getSiteByKey } = useMvpContent();

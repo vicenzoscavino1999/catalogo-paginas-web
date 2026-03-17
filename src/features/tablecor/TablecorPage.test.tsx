@@ -70,8 +70,17 @@ describe("TablecorPage", () => {
         screen.getByRole("heading", { level: 3, name: "Nesting CNC 5 ejes" })
       ).toBeInTheDocument();
       expect(processSection).not.toBeNull();
+      expect(
+        screen
+          .getAllByRole("button", { name: /Nesting CNC 5 ejes/i })
+          .some((button) => button.getAttribute("aria-pressed") === "true")
+      ).toBe(true);
+      expect(
+        screen
+          .getAllByRole("button", { name: /Seccionadora orbital/i })
+          .every((button) => button.getAttribute("aria-pressed") !== "true")
+      ).toBe(true);
       expect(within(processSection!).getAllByText("Nesting CNC 5 ejes").length).toBeGreaterThan(0);
-      expect(within(processSection!).queryAllByText("Seccionadora orbital")).toHaveLength(0);
     });
     },
     10000

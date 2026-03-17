@@ -3,11 +3,8 @@ import { startTransition, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useMvpContent } from "@/shared/content/MvpContentContext";
 import { useDocumentTitle } from "@/shared/hooks/useDocumentTitle";
+import { createCompositeKey } from "@/shared/utils/compositeKey";
 import styles from "@/features/restaurant/restaurant.module.css";
-
-function createCompositeKey(...parts: Array<number | string>) {
-  return parts.join("::");
-}
 
 export function RestaurantPage() {
   const { content, getNextSite, getSiteByKey } = useMvpContent();

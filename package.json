@@ -5,10 +5,10 @@
   "description": "Galeria de experiencias web tematicas construida con React y TypeScript.",
   "type": "module",
   "scripts": {
-    "dev": "set \"PATH=%cd%\\.tools\\node-v24.14.0-win-x64;%PATH%\" && vite --host 127.0.0.1 --port 4173",
-    "build": "set \"PATH=%cd%\\.tools\\node-v24.14.0-win-x64;%PATH%\" && tsc --noEmit && vite build",
-    "preview": "set \"PATH=%cd%\\.tools\\node-v24.14.0-win-x64;%PATH%\" && vite preview --host 127.0.0.1 --port 4173",
-    "test": "set \"PATH=%cd%\\.tools\\node-v24.14.0-win-x64;%PATH%\" && vitest run"
+    "dev": "vite --host 127.0.0.1 --port 4173",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "test": "vitest run"
   },
   "engines": {
     "node": ">=22.12.0"

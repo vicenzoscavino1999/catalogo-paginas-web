@@ -24,8 +24,24 @@ export function usePointerGlow({
   const pointerTargetRef = useRef({ x: 0, y: 0 });
   const pointerCurrentRef = useRef({ x: 0, y: 0 });
   const hasPointerPositionRef = useRef(false);
+  const isVisibleRef = useRef(false);
+  const isCoarseRef = useRef(false);
+  const cursorStateRef = useRef("");
   const frameRef = useRef<number | null>(null);
   const scheduleAnimationRef = useRef<() => void>(() => undefined);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(pointer: coarse)");
+    isCoarseRef.current = mql.matches;
+
+    const onChange = (event: MediaQueryListEvent) => {
+      isCoarseRef.current = event.matches;
+    };
+
+    mql.addEventListener("change", onChange);
+
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     const aura = cursorAuraRef.current;
@@ -87,6 +103,10 @@ export function usePointerGlow({
   }, [auraRotateDeg, cursorAuraRef, cursorDotRef, lerp]);
 
   const handlePointerMove: PointerEventHandler<HTMLElement> = (event) => {
+    if (isCoarseRef.current) {
+      return;
+    }
+
     const interactive =
       event.target instanceof Element && Boolean(event.target.closest(interactiveSelector));
 
@@ -97,18 +117,28 @@ export function usePointerGlow({
 
     pointerTargetRef.current = { x: event.clientX, y: event.clientY };
 
+    const nextCursorState = interactive ? "interactive" : "active";
+
     if (pageRef.current) {
-      pageRef.current.dataset.cursor = interactive ? "interactive" : "active";
+      if (cursorStateRef.current !== nextCursorState) {
+        cursorStateRef.current = nextCursorState;
+        pageRef.current.dataset.cursor = nextCursorState;
+      }
+
       pageRef.current.style.setProperty("--page-pointer-x", `${event.clientX}px`);
       pageRef.current.style.setProperty("--page-pointer-y", `${event.clientY}px`);
     }
 
-    if (cursorAuraRef.current) {
-      cursorAuraRef.current.style.opacity = "1";
-    }
+    if (!isVisibleRef.current) {
+      isVisibleRef.current = true;
 
-    if (cursorDotRef.current) {
-      cursorDotRef.current.style.opacity = "1";
+      if (cursorAuraRef.current) {
+        cursorAuraRef.current.style.opacity = "1";
+      }
+
+      if (cursorDotRef.current) {
+        cursorDotRef.current.style.opacity = "1";
+      }
     }
 
     scheduleAnimationRef.current();
@@ -116,6 +146,8 @@ export function usePointerGlow({
 
   const handlePointerLeave = () => {
     hasPointerPositionRef.current = false;
+    isVisibleRef.current = false;
+    cursorStateRef.current = "hidden";
 
     if (frameRef.current !== null) {
       window.cancelAnimationFrame(frameRef.current);

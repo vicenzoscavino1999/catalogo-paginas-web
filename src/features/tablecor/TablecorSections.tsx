@@ -12,6 +12,7 @@ import type {
   TablecorSurface,
 } from "@/shared/content/contentTypes";
 import type { SitePreview } from "@/shared/types/site";
+import { createCompositeKey } from "@/shared/utils/compositeKey";
 import type {
   MachineDemoStep,
   ProjectSpeedProfile,
@@ -225,10 +226,6 @@ function createSwatchStyle(base: string, accent: string): CSSProperties {
   return {
     background: `linear-gradient(135deg, ${base}, ${accent})`,
   };
-}
-
-function createCompositeKey(...parts: Array<string | number>): string {
-  return parts.join("::");
 }
 
 const tablecorNavigation = [

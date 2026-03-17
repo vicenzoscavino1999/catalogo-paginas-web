@@ -2,6 +2,7 @@ import type { PointerEventHandler } from "react";
 import { Link } from "react-router-dom";
 import type { ShopBenefit, ShopProduct } from "@/shared/content/contentTypes";
 import type { MetricItem, SitePreview } from "@/shared/types/site";
+import { createCompositeKey } from "@/shared/utils/compositeKey";
 import styles from "@/features/shop/shop.module.css";
 
 interface MotionHandlers {
@@ -82,10 +83,6 @@ interface ShopClosingSectionProps extends MotionHandlers {
   closingCards: ShopCollectionStat[];
   nextSite: SitePreview;
   siteMeta: SitePreview;
-}
-
-function createCompositeKey(...parts: Array<string | number>) {
-  return parts.join("::");
 }
 
 export function ShopTopbar({

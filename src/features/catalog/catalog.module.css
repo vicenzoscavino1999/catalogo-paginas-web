@@ -14,12 +14,12 @@
   color: #131a18;
   background:
     radial-gradient(
-      circle at calc(12% + (var(--hero-progress) * 8%)) calc(10% + (var(--catalogo-progress) * 4%)),
+      circle at 16% 12%,
       rgba(224, 182, 140, 0.1),
       transparent 20%
     ),
     radial-gradient(
-      circle at calc(84% - (var(--sistema-progress) * 10%)) calc(14% + (var(--catalogo-progress) * 10%)),
+      circle at 79% 19%,
       color-mix(in srgb, var(--theme-accent) 8%, white),
       transparent 24%
     ),
@@ -82,10 +82,8 @@
 
 .page::after {
   z-index: 0;
-  opacity: calc(0.06 + (var(--hero-focus) * 0.02));
-  background:
-    radial-gradient(circle at var(--page-pointer-x) var(--page-pointer-y), rgba(255, 252, 247, 0.18), transparent 10%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 28%);
+  opacity: 0.07;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 28%);
   transition: none;
 }
 
@@ -717,13 +715,7 @@
 }
 
 .heroBackdrop,
-.heroAura,
-.heroTransition,
-.cardImage,
-.previewImage,
-.spotlightImage,
-.sidePreviewImage,
-.systemShowcaseImage {
+.heroAura {
   will-change: transform;
 }
 
@@ -783,7 +775,7 @@
   object-fit: cover;
   display: block;
   transform: scale(1.08);
-  filter: saturate(calc(0.96 + (var(--section-focus) * 0.08))) contrast(calc(1 + (var(--section-depth) * 0.04)));
+  filter: saturate(1) contrast(1.02);
   animation: none;
 }
 
@@ -1908,8 +1900,7 @@
   .actionRow,
   .cardActions,
   .noteActions,
-  .filterRow,
-  .topbarActions {
+  .filterRow {
     width: 100%;
   }
 
@@ -1925,6 +1916,7 @@
 
   .cursorAura,
   .cursorDot,
+  .pageGlow,
   .scrollMeter {
     display: none;
   }
@@ -2010,6 +2002,7 @@
 
   .cursorAura,
   .cursorDot,
+  .pageGlow,
   .scrollMeter {
     display: none;
   }

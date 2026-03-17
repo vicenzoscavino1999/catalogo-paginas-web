@@ -6,6 +6,7 @@ import { useDocumentTitle } from "@/shared/hooks/useDocumentTitle";
 import { usePointerGlow } from "@/shared/hooks/usePointerGlow";
 import { useSectionVisibility } from "@/shared/hooks/useSectionVisibility";
 import { applySurfaceMotion, resetSurfaceMotion } from "@/shared/motion/surfaceMotion";
+import { createCompositeKey } from "@/shared/utils/compositeKey";
 import styles from "@/features/travel/travel.module.css";
 
 const defaultProfile = {
@@ -78,10 +79,6 @@ const surfaceMotionOptions = {
   tiltXFactor: 4,
   tiltYFactor: 6,
 } as const;
-
-function createCompositeKey(...parts: Array<number | string>) {
-  return parts.join("::");
-}
 
 function createAmbientEngine() {
   const AudioContextCtor =

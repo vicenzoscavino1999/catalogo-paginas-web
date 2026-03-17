@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import styles from "@/shared/components/sectionHeader.module.css";
 
 interface SectionHeaderProps {
   eyebrow?: string;
@@ -14,13 +15,13 @@ export function SectionHeader({
   actions,
 }: SectionHeaderProps) {
   return (
-    <div className="section-header">
+    <div className={styles.header}>
       <div>
         {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
         <h2>{title}</h2>
-        <p className="section-lead">{description}</p>
+        <p className={styles.lead}>{description}</p>
       </div>
-      {actions ? <div className="section-actions">{actions}</div> : null}
+      {actions ? <div className={styles.actions}>{actions}</div> : null}
     </div>
   );
 }
