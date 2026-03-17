@@ -632,7 +632,7 @@
   margin: 0 auto;
   padding: 24px 0 88px;
   display: grid;
-  gap: 24px;
+  gap: 20px;
 }
 
 .hero,
@@ -656,7 +656,7 @@
 }
 
 .hero {
-  min-height: clamp(980px, 156svh, 1360px);
+  min-height: clamp(840px, 120svh, 1120px);
 }
 
 .catalogSection {
@@ -815,10 +815,10 @@
 
 .heroInner {
   min-height: 100svh;
-  padding: 112px 0 64px;
+  padding: 104px 0 52px;
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  gap: 34px;
+  gap: 24px;
   align-items: start;
   transform: translate3d(0, calc((1 - var(--section-focus)) * 16px), 0);
   transition: none;
@@ -826,9 +826,9 @@
 
 .sectionInner {
   min-height: auto;
-  padding: 112px 0 68px;
+  padding: 96px 0 56px;
   display: grid;
-  gap: 26px;
+  gap: 22px;
   align-content: start;
   transition: none;
 }
@@ -954,9 +954,9 @@
 
 .heroCopy {
   display: grid;
-  gap: 22px;
+  gap: 18px;
   align-content: start;
-  max-width: 680px;
+  max-width: 720px;
   overflow: hidden;
   padding: 18px 20px 20px;
   border-radius: 30px;
@@ -996,11 +996,11 @@
 
 .heroTitle {
   margin: 0;
-  max-width: 8ch;
+  max-width: 10ch;
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
-  font-size: clamp(3.8rem, 6vw, 6.2rem);
-  line-height: 0.9;
+  font-size: clamp(3.2rem, 5.2vw, 5.4rem);
+  line-height: 0.92;
   color: #1a211f;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.24);
 }
@@ -1023,8 +1023,8 @@
 .sectionCopy p,
 .livePanel p {
   max-width: 60ch;
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: 0.98rem;
+  line-height: 1.72;
 }
 
 .signalStrip {
@@ -1038,7 +1038,7 @@
 .heroManifesto {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
   transform: translate3d(0, calc(((1 - var(--section-focus)) * 12px) + (var(--section-progress) * 14px)), 0);
   transition: none;
 }
@@ -1046,7 +1046,7 @@
 .heroManifestoCard {
   position: relative;
   overflow: hidden;
-  padding: 16px 18px;
+  padding: 14px 16px;
   border-radius: 24px;
   border: 1px solid rgba(24, 33, 31, 0.08);
   background:
@@ -1065,9 +1065,9 @@
 
 .heroManifestoCard strong {
   display: block;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  font-size: 1.16rem;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  font-size: 1.08rem;
   line-height: 1;
 }
 
@@ -1146,7 +1146,7 @@
 
 .heroStage {
   display: grid;
-  gap: 16px;
+  gap: 14px;
   align-content: start;
   transform: translate3d(0, calc((var(--section-progress) * 18px) - ((1 - var(--section-focus)) * 8px)), 0);
   transition: none;
@@ -1154,8 +1154,8 @@
 
 .stageRow {
   display: grid;
-  grid-template-columns: minmax(0, 0.98fr) minmax(300px, 0.72fr);
-  gap: 16px;
+  grid-template-columns: minmax(0, 1.04fr) minmax(280px, 0.68fr);
+  gap: 14px;
   align-items: start;
   transform: translate3d(0, calc(var(--section-progress) * 8px), 0);
   transition: none;
@@ -1163,7 +1163,7 @@
 
 .stageSidecar {
   display: grid;
-  gap: 16px;
+  gap: 14px;
   transform: translate3d(0, calc((var(--section-progress) * 14px) + ((1 - var(--section-focus)) * 6px)), 0);
   transition: none;
 }
@@ -1211,7 +1211,7 @@
 }
 
 .spotlightCard {
-  min-height: 520px;
+  min-height: 468px;
 }
 
 .spotlightImage,
@@ -1292,11 +1292,11 @@
 
 .spotlightCopy strong,
 .cardMediaCopy strong {
-  max-width: 13ch;
+  max-width: 15ch;
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
-  font-size: clamp(2rem, 3.2vw, 3rem);
-  line-height: 0.94;
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  line-height: 0.96;
   color: #fffdf8;
   text-shadow: 0 10px 24px rgba(10, 11, 10, 0.18);
 }
@@ -1323,7 +1323,7 @@
 }
 
 .spotlightCard .spotlightCopy {
-  bottom: 92px;
+  bottom: 84px;
 }
 
 .dossierPanel,
@@ -1340,9 +1340,9 @@
 }
 
 .dossierPanel {
-  padding: 20px;
+  padding: 18px;
   display: grid;
-  gap: 14px;
+  gap: 12px;
   transform: translate3d(var(--panel-x), var(--panel-y), 0);
 }
 
@@ -1352,7 +1352,7 @@
 }
 
 .dossierHead strong {
-  font-size: 1.5rem;
+  font-size: 1.34rem;
   line-height: 0.98;
 }
 
@@ -1380,7 +1380,7 @@
 }
 
 .sidePreviewCard {
-  min-height: 230px;
+  min-height: 206px;
   padding: 0;
   text-align: left;
   background: transparent;
@@ -1399,7 +1399,7 @@
 .previewRail {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
   align-items: start;
   transform: translate3d(0, calc((var(--section-progress) * 18px) + ((1 - var(--section-focus)) * 8px)), 0);
   opacity: calc(0.76 + (var(--section-focus) * 0.24));
@@ -1407,7 +1407,7 @@
 }
 
 .previewCard {
-  min-height: 210px;
+  min-height: 188px;
   padding: 0;
   text-align: left;
   background: transparent;
@@ -1476,9 +1476,9 @@
 .motionTickerTrack {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 20px;
   width: max-content;
-  padding: 13px 0;
+  padding: 11px 0;
   animation: none;
 }
 
@@ -1490,9 +1490,9 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 28px;
-  padding-left: 18px;
-  font-size: 0.74rem;
+  gap: 20px;
+  padding-left: 16px;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1514,7 +1514,7 @@
 .systemLead {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
-  gap: 18px;
+  gap: 16px;
   align-items: end;
   transform: translate3d(0, calc(((1 - var(--section-focus)) * 16px) - (var(--section-progress) * 8px)), 0);
   transition: none;
@@ -1528,7 +1528,7 @@
 
 .sectionCopy h2 {
   margin: 0;
-  font-size: clamp(2.8rem, 4.8vw, 4.8rem);
+  font-size: clamp(2.4rem, 4vw, 4.1rem);
   line-height: 0.9;
   color: #181f1d;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.18);
@@ -1541,7 +1541,7 @@
 .controlsPanel {
   display: grid;
   grid-template-columns: minmax(320px, 0.6fr) minmax(0, 1.4fr);
-  gap: 18px;
+  gap: 14px;
   align-items: end;
   transform: translate3d(0, calc((1 - var(--section-focus)) * 12px), 0);
   transition: none;
@@ -1618,14 +1618,14 @@
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 16px;
   transform: translate3d(0, calc(((1 - var(--section-focus)) * 14px) + (var(--section-progress) * 14px)), 0);
   transition: none;
 }
 
 .card {
   display: grid;
-  min-height: 460px;
+  min-height: 420px;
   background:
     linear-gradient(180deg, rgba(255, 251, 245, 0.78), rgba(255, 247, 238, 0.68)),
     linear-gradient(145deg, color-mix(in srgb, var(--card-accent, var(--theme-accent)) 10%, transparent), transparent 72%);
@@ -1638,7 +1638,7 @@
 .cardMedia {
   position: relative;
   z-index: 2;
-  min-height: 230px;
+  min-height: 210px;
   background:
     linear-gradient(155deg, color-mix(in srgb, var(--card-accent, var(--theme-accent)) 82%, #111413), #8e7763 170%);
 }
@@ -1647,13 +1647,13 @@
   position: relative;
   z-index: 2;
   display: grid;
-  gap: 18px;
-  padding: 20px 22px 22px;
+  gap: 14px;
+  padding: 18px 20px 20px;
   align-content: start;
 }
 
 .cardDescription {
-  line-height: 1.72;
+  line-height: 1.64;
 }
 
 .systemLead {

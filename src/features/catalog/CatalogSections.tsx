@@ -29,7 +29,6 @@ interface CatalogHeroSectionProps extends MotionHandlers {
   activeSite: SitePreview;
   catalog: CatalogContent;
   heroManifesto: Array<{ copy: string; index: string; title: string }>;
-  heroSignals: CatalogSignal[];
   isSceneTransitioning: boolean;
   marqueeItems: string[];
   previewSites: SitePreview[];
@@ -41,7 +40,6 @@ interface CatalogHeroSectionProps extends MotionHandlers {
 
 interface CatalogListSectionProps extends MotionHandlers {
   activeSite: SitePreview;
-  catalogSignals: CatalogSignal[];
   categories: string[];
   category: string;
   query: string;
@@ -105,7 +103,6 @@ export function CatalogHeroSection({
   activateSite,
   catalog,
   heroManifesto,
-  heroSignals,
   isSceneTransitioning,
   marqueeItems,
   onPointerLeave,
@@ -121,8 +118,6 @@ export function CatalogHeroSection({
       data-section-id="hero"
       data-visible="true"
       id="hero"
-      onPointerLeave={onPointerLeave}
-      onPointerMove={onPointerMove}
     >
       <div className={styles.heroBackdrop}>
         <img alt="" className={styles.backdropImage} decoding="async" fetchPriority="high" src={activeScene.image} />
@@ -157,19 +152,6 @@ export function CatalogHeroSection({
                   <small>{item.index}</small>
                   <strong>{item.title}</strong>
                   <p>{item.copy}</p>
-                </article>
-              ))}
-            </div>
-            <div className={styles.signalStrip}>
-              {heroSignals.map((signal, index) => (
-                <article
-                  className={styles.signalCard}
-                  key={createCompositeKey("hero-signal", index, signal.label, signal.value)}
-                  style={{ ["--item-index" as string]: index } as CSSProperties}
-                >
-                  <span>{signal.label}</span>
-                  <strong>{signal.value}</strong>
-                  <p>{signal.copy}</p>
                 </article>
               ))}
             </div>
@@ -300,7 +282,6 @@ export function CatalogHeroSection({
 export function CatalogListSection({
   activeSite,
   activateSite,
-  catalogSignals,
   categories,
   category,
   onPointerLeave,
@@ -316,8 +297,6 @@ export function CatalogListSection({
       data-section-id="catalogo"
       data-visible="false"
       id="catalogo"
-      onPointerLeave={onPointerLeave}
-      onPointerMove={onPointerMove}
     >
       <div className={styles.sectionInner}>
         <div className={styles.sectionHeader}>
@@ -363,19 +342,6 @@ export function CatalogListSection({
             ))}
           </div>
         </div>
-        <div className={styles.catalogSignalStrip}>
-            {catalogSignals.map((signal, index) => (
-              <article
-                className={styles.catalogSignalCard}
-                key={createCompositeKey("catalog-signal", index, signal.label, signal.value)}
-                style={{ ["--item-index" as string]: index } as CSSProperties}
-              >
-                <span>{signal.label}</span>
-                <strong>{signal.value}</strong>
-                <p>{signal.copy}</p>
-            </article>
-          ))}
-        </div>
         {visibleSites.length > 0 ? (
           <div className={styles.cardGrid}>
             {visibleSites.map((site, index) => {
@@ -392,7 +358,6 @@ export function CatalogListSection({
                     } as CSSProperties
                   }
                   onFocusCapture={() => activateSite(site.key)}
-                  onMouseEnter={() => activateSite(site.key)}
                   onPointerLeave={onPointerLeave}
                   onPointerMove={onPointerMove}
                 >
@@ -464,8 +429,6 @@ export function CatalogSystemSection({
       data-section-id="sistema"
       data-visible="false"
       id="sistema"
-      onPointerLeave={onPointerLeave}
-      onPointerMove={onPointerMove}
     >
       <div className={styles.sectionInner}>
         <div className={styles.systemLead}>

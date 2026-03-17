@@ -16,11 +16,9 @@ import {
   type CatalogCategory,
   createCatalogCategories,
   createCatalogDossier,
-  createCatalogHeroSignals,
   createCatalogManifesto,
   createCatalogMarqueeItems,
   createCatalogPreviewSites,
-  createCatalogSignals,
   createCatalogSystemShowcase,
   filterCatalogSites,
   getNextCatalogSiteKey,
@@ -91,10 +89,6 @@ export function CatalogPage() {
   const activeSite = resolveActiveCatalogSite(activeSiteKey, visibleSites, siteRegistry, featuredSite);
   const activeScene = getSiteScene(activeSite.key);
   const activeSectionLabel = getCatalogSectionLabel(activeSection);
-  const heroSignals = useMemo(
-    () => createCatalogHeroSignals(siteRegistry, categories),
-    [categories, siteRegistry]
-  );
   const previewSites = useMemo(
     () => createCatalogPreviewSites(activeSite, visibleSites, siteRegistry),
     [activeSite, siteRegistry, visibleSites]
@@ -105,10 +99,6 @@ export function CatalogPage() {
   const marqueeItems = useMemo(
     () => createCatalogMarqueeItems(siteRegistry, categories, catalog.noteTitle),
     [catalog.noteTitle, categories, siteRegistry]
-  );
-  const catalogSignals = useMemo(
-    () => createCatalogSignals(category, deferredQuery, query, activeSite),
-    [activeSite, category, deferredQuery, query]
   );
   const systemShowcase = useMemo(
     () => createCatalogSystemShowcase(activeSite, siteRegistry),
@@ -266,7 +256,6 @@ export function CatalogPage() {
           activateSite={activateSite}
           catalog={catalog}
           heroManifesto={heroManifesto}
-          heroSignals={heroSignals}
           isSceneTransitioning={isSceneTransitioning}
           marqueeItems={marqueeItems}
           onPointerLeave={handleSurfaceLeave}
@@ -280,7 +269,6 @@ export function CatalogPage() {
         <CatalogListSection
           activeSite={activeSite}
           activateSite={activateSite}
-          catalogSignals={catalogSignals}
           categories={categories}
           category={category}
           onPointerLeave={handleSurfaceLeave}
