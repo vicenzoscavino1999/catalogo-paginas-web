@@ -56,4 +56,23 @@ describe("CatalogPage", () => {
       expect(screen.getByRole("link", { name: /Abrir Casa Brasa/i })).toBeInTheDocument();
     });
   });
+
+  it("navigates to the selected demo from a catalog card action", async () => {
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <MvpContentProvider>
+          <Routes>
+            <Route path="/" element={<CatalogPage />} />
+            <Route path="/restaurant" element={<h1>Restaurant demo</h1>} />
+          </Routes>
+        </MvpContentProvider>
+      </MemoryRouter>
+    );
+
+    fireEvent.click(screen.getAllByRole("link", { name: /Abrir demo/i })[0]);
+
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: /Restaurant demo/i })).toBeInTheDocument();
+    });
+  });
 });

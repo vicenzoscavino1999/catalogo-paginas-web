@@ -1615,6 +1615,153 @@
     font-size: clamp(1.65rem, 8.4vw, 2.5rem);
   }
 
+  .lineupSidebar h2,
+  .specRail h2,
+  .dnaIntro h2,
+  .editorialLead h2,
+  .financeLead h2,
+  .ownershipHead h2,
+  .communityLead h2 {
+    margin-top: 10px;
+    font-size: clamp(1.55rem, 8vw, 2.35rem);
+  }
+
+  .lineupList,
+  .specList {
+    margin-top: 18px;
+  }
+
+  .lineupItem {
+    padding: 14px 0;
+  }
+
+  .lineupSelect {
+    gap: 6px;
+  }
+
+  .lineupSelect strong {
+    font-size: 1.52rem;
+  }
+
+  .lineupSelect small {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .compareToggle {
+    margin-top: 10px;
+  }
+
+  .specList div {
+    align-items: start;
+    padding: 12px 0;
+  }
+
+  .specList dd {
+    max-width: 14ch;
+    font-size: 0.84rem;
+  }
+
+  .techLine {
+    margin-top: 18px;
+    gap: 6px;
+  }
+
+  .techLine span {
+    padding: 5px 10px;
+    font-size: 0.76rem;
+  }
+
+  .dnaIntro p:not(.sectionLabel) {
+    margin-top: 14px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .dnaRow {
+    gap: 8px;
+    padding: 14px 0;
+  }
+
+  .dnaHead strong {
+    font-size: 1.4rem;
+  }
+
+  .dnaRow p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .benefitStack {
+    gap: 12px;
+  }
+
+  .benefitLine {
+    gap: 12px;
+    padding: 12px 0;
+    border-radius: 0;
+  }
+
+  .benefitLine strong {
+    font-size: 1.12rem;
+  }
+
+  .benefitLine p {
+    margin-top: 6px;
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .editorialLead {
+    margin-bottom: 18px;
+  }
+
+  .editorialLayout,
+  .editorialColumn {
+    gap: 10px;
+  }
+
+  .editorialHero {
+    min-height: 0;
+    height: 220px;
+  }
+
+  .editorialShot {
+    min-height: 0;
+    height: 180px;
+  }
+
+  .editorialHero figcaption,
+  .editorialShot figcaption {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    gap: 4px;
+  }
+
+  .editorialHero strong,
+  .editorialShot strong {
+    font-size: 1.2rem;
+  }
+
+  .editorialHero span,
+  .editorialShot span {
+    font-size: 0.8rem;
+  }
+
+  .editorialHero img,
+  .editorialShot img {
+    object-position: center 38%;
+    filter: brightness(1.04) saturate(1.02);
+  }
+
+  .editorialHero::after,
+  .editorialShot::after {
+    background:
+      linear-gradient(180deg, transparent 34%, rgba(3, 5, 8, 0.72)),
+      linear-gradient(90deg, rgba(3, 5, 8, 0.08), transparent 42%);
+  }
+
   .financeLead,
   .financeControls,
   .ownershipRail,
@@ -1626,8 +1773,71 @@
     padding: 28px 14px;
   }
 
+  .communityLead {
+    margin-bottom: 20px;
+  }
+
   .communityGrid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .riderCard {
+    padding: 18px 16px 18px 18px;
+    gap: 14px;
+  }
+
+  .riderQuote {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .riderMeta {
+    gap: 10px;
+  }
+
+  .riderAvatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  .financeControls {
+    gap: 18px;
+  }
+
+  .financeRange {
+    gap: 10px;
+  }
+
+  .financeRange strong {
+    font-size: 1.5rem;
+  }
+
+  .termRail {
+    gap: 6px;
+  }
+
+  .termButton {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 0.74rem;
+  }
+
+  .financeSummary {
+    gap: 10px;
+    padding-top: 16px;
+  }
+
+  .financeSummary strong {
+    font-size: 1.2rem;
+  }
+
+  .ownershipRail {
+    gap: 18px;
+  }
+
+  .ownershipActions {
+    gap: 8px;
   }
 
   .headlight,
