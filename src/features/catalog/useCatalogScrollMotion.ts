@@ -146,8 +146,15 @@ export function useCatalogScrollMotion({
       }
     };
 
-    const animateMotion = () => {
+    let measureDirty = true;
+
+    const tick = () => {
       frameRef.current = null;
+
+      if (measureDirty) {
+        measureDirty = false;
+        measureTargets();
+      }
 
       let needsAnotherFrame = false;
 
@@ -183,15 +190,15 @@ export function useCatalogScrollMotion({
       });
 
       if (needsAnotherFrame) {
-        frameRef.current = window.requestAnimationFrame(animateMotion);
+        frameRef.current = window.requestAnimationFrame(tick);
       }
     };
 
     const requestSync = () => {
-      measureTargets();
+      measureDirty = true;
 
       if (frameRef.current === null) {
-        frameRef.current = window.requestAnimationFrame(animateMotion);
+        frameRef.current = window.requestAnimationFrame(tick);
       }
     };
 
