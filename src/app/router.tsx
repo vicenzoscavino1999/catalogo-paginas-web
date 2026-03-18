@@ -98,29 +98,6 @@ const WorkspacePage = lazyRoute("workspace", () =>
   }))
 );
 
-function RouteFallback() {
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "grid",
-        placeItems: "center",
-        padding: "24px",
-        background:
-          "linear-gradient(180deg, rgba(244, 239, 229, 1) 0%, rgba(236, 227, 213, 1) 100%)",
-        color: "#18211f",
-        fontFamily: '"Syne", sans-serif',
-        letterSpacing: "0.14em",
-        textTransform: "uppercase",
-        fontSize: "0.78rem",
-        fontWeight: 800,
-      }}
-    >
-      Cargando experiencia...
-    </div>
-  );
-}
-
 function resolveRouteErrorMessage(error: unknown) {
   if (isRouteErrorResponse(error)) {
     return `${error.status} ${error.statusText}`;
@@ -252,7 +229,7 @@ function RouteErrorBoundary() {
 }
 
 function withSuspense(element: ReactNode) {
-  return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
+  return <Suspense fallback={null}>{element}</Suspense>;
 }
 
 const routeErrorElement = <RouteErrorBoundary />;
