@@ -29,6 +29,14 @@ create trigger on_auth_user_created_profile
 after insert on auth.users
 for each row execute procedure public.handle_new_user_profile();
 
+insert into public.profiles (id, email, role)
+select id, email, 'viewer'
+from auth.users
+on conflict (id) do update
+  set email = excluded.email;
+
+drop policy if exists "Users can read own profile" on public.profiles;
+
 create policy "Users can read own profile"
 on public.profiles
 for select
