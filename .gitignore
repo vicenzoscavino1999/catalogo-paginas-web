@@ -17,6 +17,11 @@ coverage/
 *.log
 *.err.log
 
+# Local environment
+.env.local
+.env.*.local
+
 # Temporary screenshots and dev captures
 /*.png
 /codex-shots/
+/.deploy-*

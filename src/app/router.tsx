@@ -92,9 +92,9 @@ const TablecorPage = lazyRoute("tablecor", () =>
 const TravelPage = lazyRoute("travel", () =>
   import("@/features/travel/TravelPage").then((module) => ({ default: module.TravelPage }))
 );
-const WorkspacePage = lazyRoute("workspace", () =>
-  import("@/features/workspace/WorkspacePage").then((module) => ({
-    default: module.WorkspacePage,
+const WorkspaceAccessPage = lazyRoute("workspace-access", () =>
+  import("@/features/auth/WorkspaceAccessPage").then((module) => ({
+    default: module.WorkspaceAccessPage,
   }))
 );
 
@@ -236,7 +236,11 @@ const routeErrorElement = <RouteErrorBoundary />;
 
 export const router = createBrowserRouter([
   { path: "/", element: withSuspense(<CatalogPage />), errorElement: routeErrorElement },
-  { path: "/workspace", element: withSuspense(<WorkspacePage />), errorElement: routeErrorElement },
+  {
+    path: "/workspace",
+    element: withSuspense(<WorkspaceAccessPage />),
+    errorElement: routeErrorElement,
+  },
   { path: "/restaurant", element: withSuspense(<RestaurantPage />), errorElement: routeErrorElement },
   { path: "/studio", element: withSuspense(<StudioPage />), errorElement: routeErrorElement },
   { path: "/shop", element: withSuspense(<ShopPage />), errorElement: routeErrorElement },
