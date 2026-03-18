@@ -97,6 +97,11 @@ const WorkspaceAccessPage = lazyRoute("workspace-access", () =>
     default: module.WorkspaceAccessPage,
   }))
 );
+const AdminRolesPage = lazyRoute("workspace-admin", () =>
+  import("@/features/auth/AdminRolesPage").then((module) => ({
+    default: module.AdminRolesPage,
+  }))
+);
 
 function resolveRouteErrorMessage(error: unknown) {
   if (isRouteErrorResponse(error)) {
@@ -239,6 +244,11 @@ export const router = createBrowserRouter([
   {
     path: "/workspace",
     element: withSuspense(<WorkspaceAccessPage />),
+    errorElement: routeErrorElement,
+  },
+  {
+    path: "/workspace/access",
+    element: withSuspense(<AdminRolesPage />),
     errorElement: routeErrorElement,
   },
   { path: "/restaurant", element: withSuspense(<RestaurantPage />), errorElement: routeErrorElement },

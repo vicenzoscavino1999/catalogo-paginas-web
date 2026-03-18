@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { useAuth } from "@/shared/auth/AuthContext";
 import { createDefaultMvpContent } from "@/shared/content/defaultContent";
 import { useMvpContent } from "@/shared/content/MvpContentContext";
 import type { CatalogContent, MvpContent, SiteMeta } from "@/shared/content/contentTypes";
@@ -556,6 +557,7 @@ function replacePreviewSection<K extends Exclude<keyof MvpContent, "sites">>(
 }
 
 export function WorkspacePage() {
+  const { role } = useAuth();
   const { content, saveContentSection, resetContentSection, resetAllContent, getSiteByKey } =
     useMvpContent();
   const defaults = useMemo(() => createDefaultMvpContent(), []);
@@ -1025,6 +1027,11 @@ export function WorkspacePage() {
 
           <div className="topbar-meta">
             <span className="topbar-label">Editor local</span>
+            {role === "admin" ? (
+              <Link className="topbar-link" to="/workspace/access">
+                Administrar accesos
+              </Link>
+            ) : null}
             <button className="topbar-link is-strong" type="button" onClick={handleResetAll}>
               Restaurar todo
             </button>
