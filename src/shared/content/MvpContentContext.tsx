@@ -13,7 +13,7 @@ import type { MvpContent, SiteMeta, SiteSectionKey } from "@/shared/content/cont
 import { siteRegistry } from "@/shared/data/sites";
 import type { SiteKey, SitePreview } from "@/shared/types/site";
 
-const STORAGE_KEY = "catalogo-webs:mvp-content:v2";
+const DEFAULT_STORAGE_KEY = "catalogo-webs:mvp-content:v2";
 const siteSectionKeys = new Set(siteRegistry.map((site) => site.key));
 
 interface MvpContentContextValue {
@@ -52,14 +52,28 @@ function removeFromStorage(key: string) {
   }
 }
 
-function readStoredContent() {
+function resolveStorageKey() {
+  if (typeof window === "undefined") {
+    return DEFAULT_STORAGE_KEY;
+  }
+
+  try {
+    const searchParams = new URLSearchParams(window.location.search);
+    const previewKey = searchParams.get("previewKey")?.trim();
+    return previewKey || DEFAULT_STORAGE_KEY;
+  } catch {
+    return DEFAULT_STORAGE_KEY;
+  }
+}
+
+function readStoredContent(storageKey: string) {
   const defaults = createDefaultMvpContent();
 
   if (typeof window === "undefined") {
     return defaults;
   }
 
-  const storedValue = readFromStorage(STORAGE_KEY);
+  const storedValue = readFromStorage(storageKey);
 
   if (!storedValue) {
     return defaults;
@@ -69,7 +83,7 @@ function readStoredContent() {
     const parsed = JSON.parse(storedValue);
     return mergeStoredContent(defaults, parsed);
   } catch {
-    removeFromStorage(STORAGE_KEY);
+    removeFromStorage(storageKey);
     return defaults;
   }
 }
@@ -95,11 +109,38 @@ function mergeStoredContent(defaults: MvpContent, stored: unknown): MvpContent {
 }
 
 export function MvpContentProvider({ children }: { children: ReactNode }) {
-  const [content, setContent] = useState<MvpContent>(() => readStoredContent());
+  const storageKey = useMemo(() => resolveStorageKey(), []);
+  const [content, setContent] = useState<MvpContent>(() => readStoredContent(storageKey));
 
   useEffect(() => {
-    writeToStorage(STORAGE_KEY, JSON.stringify(content));
-  }, [content]);
+    writeToStorage(storageKey, JSON.stringify(content));
+  }, [content, storageKey]);
+
+  useEffect(() => {
+    function handleStorage(event: StorageEvent) {
+      if (event.key !== storageKey) {
+        return;
+      }
+
+      const defaults = createDefaultMvpContent();
+
+      if (!event.newValue) {
+        setContent(defaults);
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(event.newValue);
+        setContent(mergeStoredContent(defaults, parsed));
+      } catch {
+        removeFromStorage(storageKey);
+        setContent(defaults);
+      }
+    }
+
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, [storageKey]);
 
   const derivedSiteRegistry = useMemo(
     () =>

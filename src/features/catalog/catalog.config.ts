@@ -63,6 +63,15 @@ const siteScenes: Record<SiteKey, CatalogScene> = {
   },
 };
 
+const siteIntroPreviews: Record<SiteKey, string> = {
+  restaurant: "/images/catalog-intro/restaurant-page.jpg",
+  studio: "/images/catalog-intro/studio-page.jpg",
+  shop: "/images/catalog-intro/shop-page.jpg",
+  tablecor: "/images/catalog-intro/tablecor-page.jpg",
+  travel: "/images/catalog-intro/travel-page.jpg",
+  moto: "/images/catalog-intro/moto-page.jpg",
+};
+
 export const surfaceMotionOptions = {
   offsetX: 10,
   offsetY: 10,
@@ -72,6 +81,10 @@ export const surfaceMotionOptions = {
 
 export function getSiteScene(siteKey: string) {
   return siteScenes[siteKey as SiteKey] ?? siteScenes.moto;
+}
+
+export function getSiteIntroPreview(siteKey: string) {
+  return siteIntroPreviews[siteKey as SiteKey] ?? siteIntroPreviews.moto;
 }
 
 export function getCatalogSectionLabel(sectionKey: string) {
